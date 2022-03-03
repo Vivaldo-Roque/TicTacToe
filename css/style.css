@@ -1,0 +1,133 @@
+body {margin: 0;}
+
+#page-container {
+  margin: auto;
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  padding-bottom: 5rem;    /* Footer height */
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul li {float: left;}
+
+ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+ul li a:hover:not(.active) {background-color: #111;}
+
+ul li a.active {background-color: #04AA6D;}
+
+ul li.right {float: right;}
+
+ul li a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #333;
+  color: white;
+  height : 5rem;
+}
+
+@media screen and (max-width: 600px) {
+  ul li.right, 
+  ul li {float: none;}
+}
+
+/* Boxes */
+
+h1 {
+  color: #04AA6D;
+  font-size: 45px;
+}
+
+/* 3*3 Grid */
+#b1, #b2, #b3, #b4, #b5,
+#b6, #b7, #b8, #b9 {
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  border: 1px solid gray;
+  border-radius: 6px;
+  font-size: 30px;
+  text-align: center;
+}
+
+#but {
+  box-sizing: border-box;
+  width: 95px;
+  height: 40px;
+  border: 1px solid #04AA6D;
+  margin: auto;
+  border-radius: 4px;
+  font-family: Verdana,
+  Geneva, Tahoma, sans-serif;
+
+  background-color: #04AA6D;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  font-weight: bolder;
+}
+
+.grid-container{
+  background-color: #333333;
+  align-content: center;
+  display: grid;
+  height: 300px;
+  width: 300px;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Player turn space */
+#print {
+  font-family: Verdana,
+  Geneva, Tahoma, sans-serif;
+
+  color: dodgerblue;
+  font-size: 20px;
+}
+
+/* Game Instruction Text */
+#ins {
+  font-family: Verdana,
+  Geneva, Tahoma, sans-serif;
+
+  color: black;
+  font-size: 17px;
+}
