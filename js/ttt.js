@@ -7,9 +7,8 @@ var X = "X";
 var O = "O";
 var EMPTY = "";
 
-// 2-D array
 var board = initial_state();
-
+var move = Array();
 var turn = "";
 var won = "";
 
@@ -106,7 +105,7 @@ function utility(board) {
 
 	//Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
 
-	var res = winner(board)
+	var res = winner(board);
 
 	if (res === X) {
 		return 1;
@@ -137,14 +136,15 @@ function result(board, action) {
 }
 
 function minValueAction(board, alpha, beta) {
+
+	var value = Infinity;
+	var action = actions(board);
+
 	if (terminal(board) === true) {
 		return [utility(board), null];
 	}
-	value = Infinity;
-	action = actions(board);
-	let val, temp;
-
-	for(var i = 0; i < 3; i++){
+	
+	for(var i = 0; i < action.length; i++){
 		[val, temp] = maxValueAction(result(board, action[i]), alpha, beta);
 		next_value = Math.min(value, val);
 
@@ -163,14 +163,15 @@ function minValueAction(board, alpha, beta) {
 }
 
 function maxValueAction(board, alpha, beta){
+
+	var value = -Infinity;
+	var action = actions(board);
+
 	 if (terminal(board) === true){
         return [utility(board), null];
 	 }
-    value = -Infinity;
-	var action = actions(board);
-	let val, temp;
 
-    for(var i = 0; i < 3; i++){
+    for(var i = 0; i < action.length; i++){
         [val, temp] = minValueAction(result(board, action[i]), alpha, beta);
         next_value = Math.max(value, val);
 
@@ -189,12 +190,11 @@ function maxValueAction(board, alpha, beta){
 
 function minimax(board){
     //Returns the optimal action for the current player on the board.
-    alpha = -Infinity;
-    beta = Infinity;
-	let best_action, temp;
+    var alpha = -Infinity;
+    var beta = Infinity;
 
     if (terminal(board) === true){
-        return null;
+        return;
 	}
     else{
 		if (player(board) === X){
@@ -263,17 +263,21 @@ function game() {
 	} else {
 		turn = player(board);
 		move = minimax(board);
+		board = result(board, move);
+		console.table(move);
+
 		if (turn === X) {
 			boxsID[move[0]][move[1]].style.color = "red";
 			boxsID[move[0]][move[1]].disabled = true;
 		} else if (turn === O) {
 			boxsID[move[0]][move[1]].style.color = "blue";
-			boxsID[move[0]][action[1]].disabled = true;
+			boxsID[move[0]][move[1]].disabled = true;
 		}
-		board = result(board, move);
+
+		
 		document.getElementById('print').innerHTML = "Player " + turn + " Turn";
-		//boxsID[1][1].value = player(board);
 	}
+	turn = player(board);
 	updateButtonTexts();
 }
 
