@@ -145,192 +145,50 @@ function result(board, action) {
 	return copy_board;
 }
 
-function deepcopy(board) {
-	return JSON.parse(JSON.stringify(board));
-}
-
-/*
-function minValueAction(board, alpha, beta) {
-
-	if (terminal(board)) {
-		return [utility(board), EMPTY];
-	}
-
-	var value = Infinity;
-	
-	for(var action of actions(board)){
-		[val, temp] = maxValueAction(result(board, action), alpha, beta);
-		next_value = Math.min(value, val);
-
-		if (next_value < value) {
-			value = next_value;
-			best_action = action;
-		}
-
-		beta = Math.min(beta, value);
-		if (beta <= alpha) {
-			 break;
-			}
-	}
-	
-	return [value, best_action];
-}
-
-function maxValueAction(board, alpha, beta){
-
-	 if (terminal(board)){
-		return [utility(board), EMPTY];
-	 }
-
-	 var value = -Infinity;
-
-	for(var action of actions(board)){
-		[val, temp] = minValueAction(result(board, action), alpha, beta);
-		next_value = Math.max(value, val);
-
-		if (next_value > value){
-			value = next_value;
-			best_action = action;
-		}
-
-		alpha = Math.max(alpha, value);
-		if (beta <= alpha){
-			break;
-		}
-	}
-	return [value, best_action];
-}
-
-function minimax(board){
-	//Returns the optimal action for the current player on the board.
-	var alpha = -Infinity;
-	var beta = Infinity;
-
-	if (terminal(board)){
-		return utility(board);
-	}
-	else{
-		if (player(board) === X){
-			[temp, best_action] = maxValueAction(board, alpha, beta);
-		}
-		else{
-			[temp, best_action] = minValueAction(board, alpha, beta);
-		}
-	}
-	return best_action;
-}
-*/
-
-function minimax(board, depth, isMax)
-{
+function minimax(board, depth, isMax){
     if(terminal(board))
 	{
 		return utility(board);
 	}
   
-    // If this maximizer's move
     if (isMax)
     {
         let best = -Infinity;
   
-        // Traverse all cells
-        for(let i = 0; i < 3; i++)
-        {
-            for(let j = 0; j < 3; j++)
-            {
-                 
-                // Check if cell is empty
-                if (board[i][j]=='')
-                {
-                     
-                    // Make the move
-                    board[i][j] = player(board);
-  
-                    // Call minimax recursively
-                    // and choose the maximum value
-                    best = Math.max(best, minimax(board,
-                                    depth + 1, !isMax));
-  
-                    // Undo the move
-                    board[i][j] = '';
-                }
-            }
-        }
+        for(var action of actions(board)){
+
+			 best = Math.max(best, minimax(result(board, action),
+							 depth + 1, !isMax));
+		}
         return best;
     }
-  
-    // If this minimizer's move
     else
     {
         let best = Infinity;
   
-        // Traverse all cells
-        for(let i = 0; i < 3; i++)
-        {
-            for(let j = 0; j < 3; j++)
-            {
-                 
-                // Check if cell is empty
-                if (board[i][j] == '')
-                {
-                     
-                    // Make the move
-                    board[i][j] = user;
-  
-                    // Call minimax recursively and
-                    // choose the minimum value
-                    best = Math.min(best, minimax(board,
-                                    depth + 1, !isMax));
-  
-                    // Undo the move
-                    board[i][j] = '';
-                }
-            }
+        for(var action of actions(board)){
+
+		   best = Math.min(best, minimax(result(board, action),
+						   depth + 1, !isMax));
         }
         return best;
     }
 }
  
-// This will return the best possible
-// move for the player
 function findBestMove(board)
 {
     let bestVal = -Infinity;
     let bestMove = new Array();
   
-    // Traverse all cells, evaluate
-    // minimax function for all empty
-    // cells. And return the cell
-    // with optimal value.
-    for(let i = 0; i < 3; i++)
-    {
-        for(let j = 0; j < 3; j++)
-        {
-             
-            // Check if cell is empty
-            if (board[i][j] == '')
-            {
-                 
-                // Make the move
-                board[i][j] = player(board);
+    for(var action of actions(board)){
   
-                // compute evaluation function
-                // for this move.
-                let moveVal = minimax(board, 0, false);
-  
-                // Undo the move
-                board[i][j] = '';
-  
-                // If the value of the current move
-                // is more than the best value, then
-                // update best
-                if (moveVal > bestVal)
-                {
-                    bestMove = [i, j];
-                    bestVal = moveVal;
-                }
-            }
-        }
+	   let moveVal = minimax(result(board, action), 0, false);
+
+	   if (moveVal > bestVal)
+	   {
+		   bestMove = action;
+		   bestVal = moveVal;
+	   }
     }
   
     return bestMove;
@@ -348,6 +206,7 @@ function initVariables() {
 	boxsID[2][2] = document.getElementById("b9");
 	msg = document.getElementById('print');
 	copyButtonTextsToBoard();
+
 	turn = player(board);
 	move = findBestMove(board);
 	board = result(board, move);
@@ -358,6 +217,7 @@ function initVariables() {
 		boxsID[move[0]][move[1]].style.color = "blue";
 		boxsID[move[0]][move[1]].disabled = true;
 	}
+
 	updateButtonTexts();
 	turn = player(board);
 	msg.innerHTML = "Player " + turn + " Turn";
