@@ -6,11 +6,21 @@ var boxsID = [
 var X = "X";
 var O = "O";
 var EMPTY = "";
-
+var msg;
 var board = initial_state();
 var move = Array();
 var turn = "";
+var user = O;
 var won = "";
+var ai_turn = false;
+
+function sleep(milliseconds) {
+	const date = Date.now();
+	let currentDate = null;
+	do {
+	  currentDate = Date.now();
+	} while (currentDate - date < milliseconds);
+  }
 
 function initial_state() {
 
@@ -135,26 +145,30 @@ function result(board, action) {
 	return copy_board;
 }
 
+function deepcopy(board) {
+	return JSON.parse(JSON.stringify(board));
+}
+
+/*
 function minValueAction(board, alpha, beta) {
 
-	var value = Infinity;
-	var action = actions(board);
-
-	if (terminal(board) === true) {
-		return [utility(board), null];
+	if (terminal(board)) {
+		return [utility(board), EMPTY];
 	}
+
+	var value = Infinity;
 	
-	for(var i = 0; i < action.length; i++){
-		[val, temp] = maxValueAction(result(board, action[i]), alpha, beta);
+	for(var action of actions(board)){
+		[val, temp] = maxValueAction(result(board, action), alpha, beta);
 		next_value = Math.min(value, val);
 
 		if (next_value < value) {
 			value = next_value;
-			best_action = action[i];
+			best_action = action;
 		}
 
 		beta = Math.min(beta, value);
-		if (alpha >= beta) {
+		if (beta <= alpha) {
 			 break;
 			}
 	}
@@ -164,47 +178,162 @@ function minValueAction(board, alpha, beta) {
 
 function maxValueAction(board, alpha, beta){
 
-	var value = -Infinity;
-	var action = actions(board);
-
-	 if (terminal(board) === true){
-        return [utility(board), null];
+	 if (terminal(board)){
+		return [utility(board), EMPTY];
 	 }
 
-    for(var i = 0; i < action.length; i++){
-        [val, temp] = minValueAction(result(board, action[i]), alpha, beta);
-        next_value = Math.max(value, val);
+	 var value = -Infinity;
 
-        if (next_value > value){
-            value = next_value;
-            best_action = action[i];
+	for(var action of actions(board)){
+		[val, temp] = minValueAction(result(board, action), alpha, beta);
+		next_value = Math.max(value, val);
+
+		if (next_value > value){
+			value = next_value;
+			best_action = action;
 		}
 
-        alpha = Math.max(alpha, value);
-        if (alpha >= beta){
-            break;
+		alpha = Math.max(alpha, value);
+		if (beta <= alpha){
+			break;
 		}
 	}
-    return [value, best_action];
+	return [value, best_action];
 }
 
 function minimax(board){
-    //Returns the optimal action for the current player on the board.
-    var alpha = -Infinity;
-    var beta = Infinity;
+	//Returns the optimal action for the current player on the board.
+	var alpha = -Infinity;
+	var beta = Infinity;
 
-    if (terminal(board) === true){
-        return;
+	if (terminal(board)){
+		return utility(board);
 	}
-    else{
+	else{
 		if (player(board) === X){
-            [temp, best_action] = maxValueAction(board, alpha, beta);
+			[temp, best_action] = maxValueAction(board, alpha, beta);
 		}
-        else{
-            [temp, best_action] = minValueAction(board, alpha, beta);
+		else{
+			[temp, best_action] = minValueAction(board, alpha, beta);
 		}
 	}
-    return best_action;
+	return best_action;
+}
+*/
+
+function minimax(board, depth, isMax)
+{
+    if(terminal(board))
+	{
+		return utility(board);
+	}
+  
+    // If this maximizer's move
+    if (isMax)
+    {
+        let best = -Infinity;
+  
+        // Traverse all cells
+        for(let i = 0; i < 3; i++)
+        {
+            for(let j = 0; j < 3; j++)
+            {
+                 
+                // Check if cell is empty
+                if (board[i][j]=='')
+                {
+                     
+                    // Make the move
+                    board[i][j] = player(board);
+  
+                    // Call minimax recursively
+                    // and choose the maximum value
+                    best = Math.max(best, minimax(board,
+                                    depth + 1, !isMax));
+  
+                    // Undo the move
+                    board[i][j] = '';
+                }
+            }
+        }
+        return best;
+    }
+  
+    // If this minimizer's move
+    else
+    {
+        let best = Infinity;
+  
+        // Traverse all cells
+        for(let i = 0; i < 3; i++)
+        {
+            for(let j = 0; j < 3; j++)
+            {
+                 
+                // Check if cell is empty
+                if (board[i][j] == '')
+                {
+                     
+                    // Make the move
+                    board[i][j] = user;
+  
+                    // Call minimax recursively and
+                    // choose the minimum value
+                    best = Math.min(best, minimax(board,
+                                    depth + 1, !isMax));
+  
+                    // Undo the move
+                    board[i][j] = '';
+                }
+            }
+        }
+        return best;
+    }
+}
+ 
+// This will return the best possible
+// move for the player
+function findBestMove(board)
+{
+    let bestVal = -Infinity;
+    let bestMove = new Array();
+  
+    // Traverse all cells, evaluate
+    // minimax function for all empty
+    // cells. And return the cell
+    // with optimal value.
+    for(let i = 0; i < 3; i++)
+    {
+        for(let j = 0; j < 3; j++)
+        {
+             
+            // Check if cell is empty
+            if (board[i][j] == '')
+            {
+                 
+                // Make the move
+                board[i][j] = player(board);
+  
+                // compute evaluation function
+                // for this move.
+                let moveVal = minimax(board, 0, false);
+  
+                // Undo the move
+                board[i][j] = '';
+  
+                // If the value of the current move
+                // is more than the best value, then
+                // update best
+                if (moveVal > bestVal)
+                {
+                    bestMove = [i, j];
+                    bestVal = moveVal;
+                }
+            }
+        }
+    }
+  
+    return bestMove;
 }
 
 function initVariables() {
@@ -217,7 +346,21 @@ function initVariables() {
 	boxsID[2][0] = document.getElementById("b7");
 	boxsID[2][1] = document.getElementById("b8");
 	boxsID[2][2] = document.getElementById("b9");
+	msg = document.getElementById('print');
+	copyButtonTextsToBoard();
 	turn = player(board);
+	move = findBestMove(board);
+	board = result(board, move);
+	if (turn === X) {
+		boxsID[move[0]][move[1]].style.color = "red";
+		boxsID[move[0]][move[1]].disabled = true;
+	} else if (turn === O) {
+		boxsID[move[0]][move[1]].style.color = "blue";
+		boxsID[move[0]][move[1]].disabled = true;
+	}
+	updateButtonTexts();
+	turn = player(board);
+	msg.innerHTML = "Player " + turn + " Turn";
 }
 
 // Function to reset game
@@ -246,38 +389,57 @@ function updateButtonTexts() {
 	}
 }
 
-// Function called whenever user tab on any box
-function game() {
-
-	// Setting DOM to all boxes or input field
+function copyButtonTextsToBoard() {
 	board = [
 		[boxsID[0][0].value, boxsID[0][1].value, boxsID[0][2].value],
 		[boxsID[1][0].value, boxsID[1][1].value, boxsID[1][2].value],
 		[boxsID[2][0].value, boxsID[2][1].value, boxsID[2][2].value]
 	];
+}
+
+// Function called whenever user tab on any box
+function game() {
+
+	copyButtonTextsToBoard();
+
+	ai_turn = true;
 
 	if (terminal(board)) {
 		won = winner(board);
-		document.getElementById('print').innerHTML = "Player " + won + " Won";
+		msg.innerHTML = "Player " + won + " Won";
 		disableAllButtons();
 	} else {
 		turn = player(board);
-		move = minimax(board);
-		board = result(board, move);
-		console.table(move);
+		if (user !== turn) {
+			if (ai_turn) {
+				move = findBestMove(board);
+				board = result(board, move);
 
-		if (turn === X) {
-			boxsID[move[0]][move[1]].style.color = "red";
-			boxsID[move[0]][move[1]].disabled = true;
-		} else if (turn === O) {
-			boxsID[move[0]][move[1]].style.color = "blue";
-			boxsID[move[0]][move[1]].disabled = true;
+				if (turn === X) {
+					boxsID[move[0]][move[1]].style.color = "red";
+					boxsID[move[0]][move[1]].disabled = true;
+				} else if (turn === O) {
+					boxsID[move[0]][move[1]].style.color = "blue";
+					boxsID[move[0]][move[1]].disabled = true;
+				}
+
+				ai_turn = false;
+			}
 		}
+		else {
+			ai_turn = true;
+		}	
 
-		
-		document.getElementById('print').innerHTML = "Player " + turn + " Turn";
+		turn = player(board);
+		msg.innerHTML = "Player " + turn + " Turn";
 	}
-	turn = player(board);
+
+	if (terminal(board)) {
+		won = winner(board);
+		msg.innerHTML = "Player " + won + " Won";
+		disableAllButtons();
+	}
+
 	updateButtonTexts();
 }
 
@@ -291,14 +453,14 @@ function button1() {
 			boxsID[0][0].style.color = "blue";
 		}
 
-	boxsID[0][0].value = turn;
+	boxsID[0][0].value = user;
 	boxsID[0][0].disabled = true;
 	game();
 }
 
 function button2() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[0][1].style.color = "red";
 	}
 	else
@@ -306,7 +468,7 @@ function button2() {
 			boxsID[0][1].style.color = "blue";
 		}
 
-	boxsID[0][1].value = turn;
+	boxsID[0][1].value = user;
 	boxsID[0][1].disabled = true;
 	game();
 }
@@ -321,7 +483,7 @@ function button3() {
 			boxsID[0][2].style.color = "blue";
 		}
 
-	boxsID[0][2].value = turn;
+	boxsID[0][2].value = user;
 	boxsID[0][2].disabled = true;
 	game();
 }
@@ -336,7 +498,7 @@ function button4() {
 			boxsID[1][0].style.color = "blue";
 		}
 
-	boxsID[1][0].value = turn;
+	boxsID[1][0].value = user;
 	boxsID[1][0].disabled = true;
 	game();
 }
@@ -351,7 +513,7 @@ function button5() {
 			boxsID[1][1].style.color = "blue";
 		}
 
-	boxsID[1][1].value = turn;
+	boxsID[1][1].value = user;
 	boxsID[1][1].disabled = true;
 	game();
 }
@@ -366,7 +528,7 @@ function button6() {
 			boxsID[1][2].style.color = "blue";
 		}
 
-	boxsID[1][2].value = turn;
+	boxsID[1][2].value = user;
 	boxsID[1][2].disabled = true;
 	game();
 }
@@ -381,7 +543,7 @@ function button7() {
 			boxsID[2][0].style.color = "blue";
 		}
 
-	boxsID[2][0].value = turn;
+	boxsID[2][0].value = user;
 	boxsID[2][0].disabled = true;
 	game();
 }
@@ -396,7 +558,7 @@ function button8() {
 			boxsID[2][1].style.color = "blue";
 		}
 
-	boxsID[2][1].value = turn;
+	boxsID[2][1].value = user;
 	boxsID[2][1].disabled = true;
 	game();
 }
@@ -411,7 +573,7 @@ function button9() {
 			boxsID[2][2].style.color = "blue";
 		}
 
-	boxsID[2][2].value = turn;
+	boxsID[2][2].value = user;
 	boxsID[2][2].disabled = true;
 	game();
 }
