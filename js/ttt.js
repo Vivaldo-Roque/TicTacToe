@@ -79,11 +79,11 @@ function winner(board) {
 	for (var i = 0; i < moves.length; i++) {
 
 		for (var x = 0; x < 3; x++) {
-			if ((board[i][0] === moves[i]) && (moves[i] === board[i][1]) && (board[i][2] === moves[i])) {
+			if ((board[x][0] === moves[i]) && (moves[i] === board[x][1]) && (board[x][2] === moves[i])) {
 				return moves[i];
 			}
 
-			if ((board[0][i] === moves[i]) && (board[1][i] === moves[i]) && (board[2][i] === moves[i])) {
+			if ((board[0][x] === moves[i]) && (board[1][x] === moves[i]) && (board[2][x] === moves[i])) {
 				return moves[i];
 			}
 
@@ -97,18 +97,20 @@ function winner(board) {
 			return moves[i];
 		}
 	}
-	return "";
+	return null;
 }
 
 function terminal(board) {
 	//Returns true if game is over, False otherwise.
 
-	if (winner(board) !== EMPTY || (!board.some(row => row === EMPTY) && winner(board) !== EMPTY)) {
+	if (winner(board) !== null || (!board.some(row =>  row.some(subRow => subRow == EMPTY)) && winner(board) == null))
+       {
 		return true;
-	}
-	else {
-		return false;
-	}
+	   }
+    else
+        {
+			return false;
+		}
 }
 
 function utility(board) {
@@ -145,20 +147,25 @@ function result(board, action) {
 	return copy_board;
 }
 
-function minimax(board, depth, isMax){
+function minimax(board, alpha, beta){
     if(terminal(board))
 	{
 		return utility(board);
 	}
   
-    if (isMax)
+    if (player(board) === X)
     {
         let best = -Infinity;
   
         for(var action of actions(board)){
 
-			 best = Math.max(best, minimax(result(board, action),
-							 depth + 1, !isMax));
+			 best = Math.max(best, minimax(result(board, action), alpha, beta));
+			 alpha = Math.max(alpha, best);
+
+			 // Alpha Beta Pruning
+			 if (beta <= alpha){
+				break;
+			 }
 		}
         return best;
     }
@@ -168,8 +175,14 @@ function minimax(board, depth, isMax){
   
         for(var action of actions(board)){
 
-		   best = Math.min(best, minimax(result(board, action),
-						   depth + 1, !isMax));
+		   best = Math.min(best, minimax(result(board, action), alpha, beta));
+
+		   beta = Math.min(beta, best);
+
+			 // Alpha Beta Pruning
+			 if (beta <= alpha){
+				break;
+			 }
         }
         return best;
     }
@@ -179,10 +192,12 @@ function findBestMove(board)
 {
     let bestVal = -Infinity;
     let bestMove = new Array();
+	var alpha = -Infinity;
+	var beta = Infinity;
   
     for(var action of actions(board)){
   
-	   let moveVal = minimax(result(board, action), 0, false);
+	   let moveVal = minimax(result(board, action), alpha, beta);
 
 	   if (moveVal > bestVal)
 	   {
@@ -267,6 +282,9 @@ function game() {
 	if (terminal(board)) {
 		won = winner(board);
 		msg.innerHTML = "Player " + won + " Won";
+		if(won === null){
+			msg.innerHTML = "Tie";
+		}
 		disableAllButtons();
 	} else {
 		turn = player(board);
@@ -297,6 +315,9 @@ function game() {
 	if (terminal(board)) {
 		won = winner(board);
 		msg.innerHTML = "Player " + won + " Won";
+		if(won === null){
+			msg.innerHTML = "Tie";
+		}
 		disableAllButtons();
 	}
 
