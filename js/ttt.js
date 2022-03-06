@@ -103,7 +103,7 @@ function winner(board) {
 function terminal(board) {
 	//Returns true if game is over, False otherwise.
 
-	if (winner(board) !== null || (!board.some(row =>  row.some(subRow => subRow == EMPTY)) && winner(board) == null))
+	if (winner(board) !== null || (!board.some(row =>  row.some(subRow => subRow === EMPTY)) && winner(board) === null))
        {
 		return true;
 	   }
