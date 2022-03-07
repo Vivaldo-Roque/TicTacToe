@@ -9,18 +9,13 @@ var EMPTY = "";
 var msg;
 var board = initial_state();
 var move = Array();
-var turn = "";
-var user = O;
 var won = "";
-var ai_turn = false;
+var ai_turn = true;
+var game_mode_cpu = true; 
+var start_x_o = true;
+var user  = "";
 
-function sleep(milliseconds) {
-	const date = Date.now();
-	let currentDate = null;
-	do {
-	  currentDate = Date.now();
-	} while (currentDate - date < milliseconds);
-  }
+//#region AI functions
 
 function initial_state() {
 
@@ -49,9 +44,9 @@ function actions(board) {
 function player(board) {
 	//Returns player who has the next turn on a board.
 
-	x_player = 0;
-	o_player = 0;
-
+	var x_player = 0;
+	var o_player = 0;
+	
 	// Check if board is starting state
 	if (JSON.stringify(board) === JSON.stringify(initial_state())) {
 		return X;
@@ -62,14 +57,25 @@ function player(board) {
 		o_player = o_player + board[a].filter(item => item === O).length;
 	}
 
-	if (((x_player + o_player) % 2) === 0) {
-		return X;
-	}
-	else {
-		return O;
+	if(o_player === 1 && x_player === 0){
+		start_x_o = false;
 	}
 
-
+	if(start_x_o){
+		if (((x_player + o_player) % 2) == 0) {
+			return X;
+		}
+		else {
+			return O;
+		}
+	}else{
+		if (((x_player + o_player) % 2) == 0) {
+			return O;
+		}
+		else {
+			return X;
+		}
+	}
 }
 
 function winner(board) {
@@ -103,14 +109,12 @@ function winner(board) {
 function terminal(board) {
 	//Returns true if game is over, False otherwise.
 
-	if (winner(board) !== null || (!board.some(row =>  row.some(subRow => subRow === EMPTY)) && winner(board) === null))
-       {
+	if (winner(board) !== null || (!board.some(row => row.some(subRow => subRow === EMPTY)) && winner(board) === null)) {
 		return true;
-	   }
-    else
-        {
-			return false;
-		}
+	}
+	else {
+		return false;
+	}
 }
 
 function utility(board) {
@@ -147,66 +151,154 @@ function result(board, action) {
 	return copy_board;
 }
 
-function minimax(board, alpha, beta){
-    if(terminal(board))
-	{
+function minimax(board, alpha, beta) {
+	if (terminal(board)) {
 		return utility(board);
 	}
-  
-    if (player(board) === X)
-    {
-        let best = -Infinity;
-  
-        for(var action of actions(board)){
 
-			 best = Math.max(best, minimax(result(board, action), alpha, beta));
-			 alpha = Math.max(alpha, best);
+	if (player(board) === X) {
+		let best = -Infinity;
 
-			 // Alpha Beta Pruning
-			 if (beta <= alpha){
+		for (var action of actions(board)) {
+
+			best = Math.max(best, minimax(result(board, action), alpha, beta));
+			alpha = Math.max(alpha, best);
+
+			// Alpha Beta Pruning
+			if (beta <= alpha) {
 				break;
-			 }
+			}
 		}
-        return best;
-    }
-    else
-    {
-        let best = Infinity;
-  
-        for(var action of actions(board)){
+		return best;
+	}
+	else {
+		let best = Infinity;
 
-		   best = Math.min(best, minimax(result(board, action), alpha, beta));
+		for (var action of actions(board)) {
 
-		   beta = Math.min(beta, best);
+			best = Math.min(best, minimax(result(board, action), alpha, beta));
 
-			 // Alpha Beta Pruning
-			 if (beta <= alpha){
+			beta = Math.min(beta, best);
+
+			// Alpha Beta Pruning
+			if (beta <= alpha) {
 				break;
-			 }
-        }
-        return best;
-    }
+			}
+		}
+		return best;
+	}
 }
- 
-function findBestMove(board)
-{
-    let bestVal = -Infinity;
-    let bestMove = new Array();
+
+function findBestMove(board) {
+	let bestVal;
+	let bestMove = new Array();
 	var alpha = -Infinity;
 	var beta = Infinity;
-  
-    for(var action of actions(board)){
-  
-	   let moveVal = minimax(result(board, action), alpha, beta);
 
-	   if (moveVal > bestVal)
-	   {
-		   bestMove = action;
-		   bestVal = moveVal;
-	   }
-    }
-  
-    return bestMove;
+	if(user === O)
+		{
+			bestVal = -Infinity;
+		}else{
+			bestVal = Infinity;
+		}
+
+	for (var action of actions(board)) {
+
+		let moveVal = minimax(result(board, action), alpha, beta);
+
+		if(user === O)
+		{
+			if (moveVal > bestVal) {
+				bestMove = action;
+				bestVal = moveVal;
+			}
+
+		}else{
+			if (moveVal < bestVal) {
+				bestMove = action;
+				bestVal = moveVal;
+			}
+		}
+	}
+
+	return bestMove;
+}
+
+//#endregion
+
+function popup(AI){
+	const myPopUp = document.getElementsByClassName("popup_box")[0];
+	const myBtn1 = document.getElementsByClassName("btn1")[0];
+	const myBtn2 = document.getElementsByClassName("btn2")[0];
+	myPopUp.style.display = "block";
+	if(AI){
+		myBtn1.addEventListener("click", function(){
+			const myPopUp = document.getElementsByClassName("popup_box")[0];
+			myPopUp.style.display = "none";
+			enableAllButtons();
+			msg.innerHTML = "Player " + player(board) + " Turn";
+			user = X;
+			for (var i = 0; i < 3; i++) {
+				for (var j = 0; j < 3; j++) {
+					boxsID[i][j].value = "";
+				}
+			}
+			game_mode_cpu = true;
+			copyButtonTextsToBoard();
+		});
+		myBtn2.addEventListener("click", function(){
+			const myPopUp = document.getElementsByClassName("popup_box")[0];
+			myPopUp.style.display = "none";
+			enableAllButtons();
+			msg.innerHTML = "Player " + player(board) + " Turn";
+			user = O;
+			for (var i = 0; i < 3; i++) {
+				for (var j = 0; j < 3; j++) {
+					boxsID[i][j].value = "";
+				}
+			}
+			game_mode_cpu = AI;
+			copyButtonTextsToBoard();
+			if (ai_turn && game_mode_cpu) {
+				move = findBestMove(board);
+				if (player(board) === X) {
+					boxsID[move[0]][move[1]].style.color = "red";
+					boxsID[move[0]][move[1]].disabled = true;
+				} else {
+					boxsID[move[0]][move[1]].style.color = "blue";
+					boxsID[move[0]][move[1]].disabled = true;
+				}
+				board = result(board, move);
+				updateButtonTexts();
+				ai_turn = false;
+			}
+		});
+	}else{
+		myBtn1.addEventListener("click", function(){
+			const myPopUp = document.getElementsByClassName("popup_box")[0];
+			myPopUp.style.display = "none";
+			enableAllButtons();
+			msg.innerHTML = "Player " + X + " Turn";
+			user = X;
+			game_mode_cpu = false;
+		});
+		myBtn2.addEventListener("click", function(){
+			const myPopUp = document.getElementsByClassName("popup_box")[0];
+			myPopUp.style.display = "none";
+			enableAllButtons();
+			msg.innerHTML = "Player " + O + " Turn";
+			user = O;
+			game_mode_cpu = false;
+		});
+	}
+}
+
+function oneVsOne(){
+	popup(false);
+}
+
+function oneVsCpu(){
+	popup(true);
 }
 
 function initVariables() {
@@ -220,22 +312,7 @@ function initVariables() {
 	boxsID[2][1] = document.getElementById("b8");
 	boxsID[2][2] = document.getElementById("b9");
 	msg = document.getElementById('print');
-	copyButtonTextsToBoard();
-
-	turn = player(board);
-	move = findBestMove(board);
-	board = result(board, move);
-	if (turn === X) {
-		boxsID[move[0]][move[1]].style.color = "red";
-		boxsID[move[0]][move[1]].disabled = true;
-	} else if (turn === O) {
-		boxsID[move[0]][move[1]].style.color = "blue";
-		boxsID[move[0]][move[1]].disabled = true;
-	}
-
-	updateButtonTexts();
-	turn = player(board);
-	msg.innerHTML = "Player " + turn + " Turn";
+	disableAllButtons();
 }
 
 // Function to reset game
@@ -252,6 +329,14 @@ function disableAllButtons() {
 	for (var i = 0; i < 3; i++) {
 		for (var j = 0; j < 3; j++) {
 			boxsID[i][j].disabled = true;
+		}
+	}
+}
+
+function enableAllButtons(){
+	for (var i = 0; i < 3; i++) {
+		for (var j = 0; j < 3; j++) {
+			boxsID[i][j].disabled = false;
 		}
 	}
 }
@@ -282,57 +367,65 @@ function game() {
 	if (terminal(board)) {
 		won = winner(board);
 		msg.innerHTML = "Player " + won + " Won";
-		if(won === null){
+		if (won === null) {
 			msg.innerHTML = "Tie";
 		}
 		disableAllButtons();
+		return;
 	} else {
-		turn = player(board);
-		if (user !== turn) {
-			if (ai_turn) {
-				move = findBestMove(board);
-				board = result(board, move);
+		if (ai_turn && game_mode_cpu) {
+			move = findBestMove(board);
 
-				if (turn === X) {
-					boxsID[move[0]][move[1]].style.color = "red";
-					boxsID[move[0]][move[1]].disabled = true;
-				} else if (turn === O) {
-					boxsID[move[0]][move[1]].style.color = "blue";
-					boxsID[move[0]][move[1]].disabled = true;
+			if (player(board) === X) {
+				boxsID[move[0]][move[1]].style.color = "red";
+				boxsID[move[0]][move[1]].disabled = true;
+			} else {
+				boxsID[move[0]][move[1]].style.color = "blue";
+				boxsID[move[0]][move[1]].disabled = true;
+			}
+
+			board = result(board, move);
+			ai_turn = false;
+
+			updateButtonTexts();
+
+			if (terminal(board)) {
+				won = winner(board);
+				msg.innerHTML = "Player " + won + " Won";
+				if (won === null) {
+					msg.innerHTML = "Tie";
 				}
-
-				ai_turn = false;
+				disableAllButtons();
+				return;
 			}
 		}
-		else {
-			ai_turn = true;
-		}	
-
-		turn = player(board);
-		msg.innerHTML = "Player " + turn + " Turn";
 	}
+
+	updateButtonTexts();
+	if(!game_mode_cpu){
+		user = player(board);
+	}
+	msg.innerHTML = "Player " + player(board) + " Turn";
 
 	if (terminal(board)) {
 		won = winner(board);
 		msg.innerHTML = "Player " + won + " Won";
-		if(won === null){
+		if (won === null) {
 			msg.innerHTML = "Tie";
 		}
 		disableAllButtons();
+		return;
 	}
-
-	updateButtonTexts();
 }
 
 function button1() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[0][0].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[0][0].style.color = "blue";
-		}
+	else {
+		boxsID[0][0].style.color = "blue";
+	}
 
 	boxsID[0][0].value = user;
 	boxsID[0][0].disabled = true;
@@ -344,10 +437,9 @@ function button2() {
 	if (user === X) {
 		boxsID[0][1].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[0][1].style.color = "blue";
-		}
+	else {
+		boxsID[0][1].style.color = "blue";
+	}
 
 	boxsID[0][1].value = user;
 	boxsID[0][1].disabled = true;
@@ -356,13 +448,12 @@ function button2() {
 
 function button3() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[0][2].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[0][2].style.color = "blue";
-		}
+	else {
+		boxsID[0][2].style.color = "blue";
+	}
 
 	boxsID[0][2].value = user;
 	boxsID[0][2].disabled = true;
@@ -371,13 +462,12 @@ function button3() {
 
 function button4() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[1][0].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[1][0].style.color = "blue";
-		}
+	else {
+		boxsID[1][0].style.color = "blue";
+	}
 
 	boxsID[1][0].value = user;
 	boxsID[1][0].disabled = true;
@@ -386,13 +476,12 @@ function button4() {
 
 function button5() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[1][1].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[1][1].style.color = "blue";
-		}
+	else {
+		boxsID[1][1].style.color = "blue";
+	}
 
 	boxsID[1][1].value = user;
 	boxsID[1][1].disabled = true;
@@ -401,13 +490,12 @@ function button5() {
 
 function button6() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[1][2].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[1][2].style.color = "blue";
-		}
+	else {
+		boxsID[1][2].style.color = "blue";
+	}
 
 	boxsID[1][2].value = user;
 	boxsID[1][2].disabled = true;
@@ -416,13 +504,12 @@ function button6() {
 
 function button7() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[2][0].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[2][0].style.color = "blue";
-		}
+	else {
+		boxsID[2][0].style.color = "blue";
+	}
 
 	boxsID[2][0].value = user;
 	boxsID[2][0].disabled = true;
@@ -431,13 +518,12 @@ function button7() {
 
 function button8() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[2][1].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[2][1].style.color = "blue";
-		}
+	else {
+		boxsID[2][1].style.color = "blue";
+	}
 
 	boxsID[2][1].value = user;
 	boxsID[2][1].disabled = true;
@@ -446,13 +532,12 @@ function button8() {
 
 function button9() {
 
-	if (turn === X) {
+	if (user === X) {
 		boxsID[2][2].style.color = "red";
 	}
-	else
-		if (turn === O) {
-			boxsID[2][2].style.color = "blue";
-		}
+	else {
+		boxsID[2][2].style.color = "blue";
+	}
 
 	boxsID[2][2].value = user;
 	boxsID[2][2].disabled = true;
