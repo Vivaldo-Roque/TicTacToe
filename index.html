@@ -1,106 +1,156 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/ttt.js"></script>
+    <title>Tic Tac Toe</title>
+  </head>
 
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./css/style.css">
-	<script src="./js/ttt.js"></script>
-	<title> Tic Tac Toe </title>
-</head>
+  <body onload="initVariables();">
+    <div id="page-container">
+      <div>
+        <ul class="topnav">
+          <li><a href="/index.html" class="logo">VR</a></li>
+          <li><a href="/index.html">Início</a></li>
+          <li><a onclick="oneVsOne();">1 VS 1</a></li>
+          <li><a onclick="oneVsCpu();">1 VS CPU</a></li>
+          <li><a href="pages/contact.html">Contato</a></li>
+          <li class="right">
+            <a class="active" href="pages/about.html">Sobre</a>
+          </li>
+        </ul>
+      </div>
 
-<body onload="initVariables();">
+      <div id="content-wrap">
+        <h1>Tic Tac Toe</h1>
+        <p id="ins">
+          O jogo começa apenas tocando em caixa
+          <br />
+          <br />
+          O primeiro jogador começa como <b>Jogador X</b>
+          <br />
+          <br />
+          E
+          <br />
+          <br />
+          Segundo Jogador como <b>Jogador O</b>
+        </p>
 
-	<div id="page-container">
-		<div>
-			<ul class="topnav">
-				<li><a href="/index.html" class="logo">VR</a></li>
-				<li><a href="/index.html">Início</a></li>
-				<li><a onclick="oneVsOne();">1 VS 1</a></li>
-				<li><a onclick="oneVsCpu();">1 VS CPU</a></li>
-				<li><a href="pages/contact.html">Contato</a></li>
-				<li class="right"><a class="active" href="pages/about.html">Sobre</a></li>
-			</ul>
-		</div>
+        <br /><br />
+        <!-- 3*3 grid of Boxes -->
 
-		<div id="content-wrap">
-			<h1>Tic Tac Toe</h1>
-			<p id="ins">
-				O jogo começa apenas tocando em caixa
-				<br>
-				<br>
-				O primeiro jogador começa como <b>Jogador X</b>
-				<br>
-				<br>
-				E
-				<br>
-				<br>
-				Segundo Jogador como <b>Jogador O</b>
-			</p>
+        <div class="grid-container">
+          <div>
+            <input
+              type="text"
+              class="btn"
+              id="b1"
+              onclick="handleClickButton(1);"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="b2"
+              class="btn"
+              onclick="handleClickButton(2);"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="b3"
+              class="btn"
+              onclick="handleClickButton(3);"
+              readonly
+            />
+          </div>
 
-			<br><br>
-			<!-- 3*3 grid of Boxes -->
+          <div>
+            <input
+              type="text"
+              id="b4"
+              class="btn"
+              onclick="handleClickButton(4);"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="b5"
+              class="btn"
+              onclick="handleClickButton(5);"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="b6"
+              class="btn"
+              onclick="handleClickButton(6);"
+              readonly
+            />
+          </div>
 
-			<div class="grid-container">
-				<div>
-					<input type="text" id="b1" onclick="button1();" readonly>
-				</div>
-				<div>
-					<input type="text" id="b2" onclick="button2();" readonly>
-				</div>
-				<div>
-					<input type="text" id="b3" onclick="button3();" readonly>
-				</div>
+          <div>
+            <input
+              type="text"
+              id="b7"
+              class="btn"
+              onclick="handleClickButton(7);"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="b8"
+              class="btn"
+              onclick="handleClickButton(8);"
+              readonly
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="b9"
+              class="btn"
+              onclick="handleClickButton(9);"
+              readonly
+            />
+          </div>
+        </div>
 
-				<div>
-					<input type="text" id="b4" onclick="button4();" readonly>
-				</div>
-				<div>
-					<input type="text" id="b5" onclick="button5();" readonly>
-				</div>
-				<div>
-					<input type="text" id="b6" onclick="button6();" readonly>
-				</div>
+        <!-- Grid end here  -->
+        <br /><br /><br />
+        <!-- Button to reset game -->
+        <button id="but" class="reset-btn" onclick="restart()">
+          Reiniciar
+        </button>
 
-				<div>
-					<input type="text" id="b7" onclick="button7();" readonly>
-				</div>
-				<div>
-					<input type="text" id="b8" onclick="button8();" readonly>
-				</div>
-				<div>
-					<input type="text" id="b9" onclick="button9();" readonly>
-				</div>
+        <br /><br />
+        <!-- Space to show player turn -->
+        <p id="print"></p>
+        <br /><br />
+        <div class="popup_box">
+          <h1>Escolha entre "X" ou "O"</h1>
+          <div class="btns">
+            <a href="#" class="btn1">X</a>
+            <a href="#" class="btn2">O</a>
+          </div>
+        </div>
+      </div>
 
-			</div>
-
-			<!-- Grid end here  -->
-			<br><br><br>
-			<!-- Button to reset game -->
-			<button id="but" onclick="restart()">
-				Reiniciar
-			</button>
-
-			<br><br>
-			<!-- Space to show player turn -->
-			<p id="print"></p>
-			<br><br>
-			<div class="popup_box">
-				<h1>Escolha entre "X" ou "O"</h1>
-				<div class="btns">
-				  <a href="#" class="btn1">X</a>
-				  <a href="#" class="btn2">O</a>
-				</div>
-			  </div>
-		</div>
-
-		<div>
-			<footer>
-				<p>Autor: Vivaldo Roque<br>
-				</p>
-			</footer>
-		</div>
-	</div>
-
-</body>
-
+      <div>
+        <footer>
+          <p>Autor: Vivaldo Roque<br /></p>
+        </footer>
+      </div>
+    </div>
+  </body>
 </html>
