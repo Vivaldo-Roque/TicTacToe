@@ -1,4 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;800;900&family=Roboto:wght@400;500;700;900&display=swap');
+
 body {margin: 0;}
+
+body {
+  font-family: Roboto;
+}
+
+:root{
+  --cross: #FF073A;
+  --naught: #006AF9;
+  --draw-speed: 0.2s
+}
 
 #page-container {
   margin: auto;
@@ -33,19 +45,28 @@ ul li a {
   padding: 14px 16px;
   text-decoration: none;
   line-height: 25px;
-  border-radius: 4px;
+  transition: background-color 0.5s;
+  font-family: Poppins;
 }
 
 ul li a:hover:not(.active) {background-color: #111;}
 
-ul li a.active {background-color: #04AA6D;}
+ul li a.active {
+  transition: background-color 0.5s;
+  background-color: #04AA6D;
+}
 
+ul li a.active:hover {
+  background-color: #028d5a;
+}
 ul li.right {float: right;}
 
 ul li a.logo {
   font-size: 25px;
-  font-weight: bold;
+  font-weight: 800;
+  font-family: Poppins;
 }
+
 
 
 footer {
@@ -76,8 +97,8 @@ h2 {
 }
 
 /* 3*3 Grid */
-#b1, #b2, #b3, #b4, #b5,
-#b6, #b7, #b8, #b9 {
+.btn {
+  cursor: pointer;
   width: 80px;
   height: 80px;
   margin: auto;
@@ -87,9 +108,9 @@ h2 {
   text-align: center;
 }
 
-#but {
+.reset-btn {
   box-sizing: border-box;
-  width: 95px;
+  width: 120px;
   height: 40px;
   border: 1px solid #04AA6D;
   margin: auto;
@@ -97,10 +118,15 @@ h2 {
   font-family: Verdana,
   Geneva, Tahoma, sans-serif;
 
+  transition: background-color 0.5s;
   background-color: #04AA6D;
   color: white;
   font-size: 20px;
   cursor: pointer;
+}
+
+.reset-btn:hover {
+  background-color: #028d5a;
 }
 
 input[type="text"] {
@@ -122,7 +148,7 @@ input[type="text"] {
 /* Player turn space */
 #print {
   font-family: Verdana,
-  Geneva, Tahoma, sans-serif;
+  Roboto, Tahoma, sans-serif;
 
   color: dodgerblue;
   font-size: 20px;
@@ -131,7 +157,7 @@ input[type="text"] {
 /* Game Instruction Text */
 #ins {
   font-family: Verdana,
-  Geneva, Tahoma, sans-serif;
+  Roboto, Tahoma, sans-serif;
 
   color: black;
   font-size: 17px;
@@ -203,4 +229,26 @@ input[type="text"] {
 .btns .btn2:hover{
   transition: .5s;
   background: blue;
+}
+
+.naught {
+  stroke: var(--naught);
+  transform: rotateX(180deg);
+}
+.cross {
+  stroke: var(--cross);
+}
+
+ path, circle {
+  animation: draw var(--draw-speed) calc(var(--delay, 0) * var(--draw-speed))  ease-in both;
+}
+
+path:nth-of-type(2) {
+  --delay: 1;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
