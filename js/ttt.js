@@ -3,9 +3,10 @@ var boxsID = [
   [, ,],
   [, ,],
 ];
-var X = 'X';
-var O = 'O';
-var EMPTY = '';
+
+const X = 'X';
+const O = 'O';
+const EMPTY = '';
 var msg;
 var board = initial_state();
 var move = Array();
@@ -14,6 +15,40 @@ var ai_turn = true;
 var game_mode_cpu = true;
 var start_x_o = true;
 var user = '';
+
+const circle_element = `
+  <svg class="naught" width="60" height="60" view-box="0 0 100 100">
+      <circle
+        r="27"
+        cx="30"
+        cy="30"
+        stroke-width="6"
+        stroke-linecap="round"
+        stroke-dasharray="200"
+        stroke-dashoffset="200"
+        fill="none"
+      />
+  </svg>
+`;
+
+const cross_element = `
+  <svg class="cross" width="60" height="60" view-box="0 0 100 100">
+    <path
+      d="M 60 0 L 0 60"
+      stroke-dasharray="100"
+      stroke-dashoffset="100"
+      stroke-width="5"
+      stroke-linecap="round"
+    />
+    <path
+      d="M 0 0 L 60 60"
+      stroke-dasharray="100"
+      stroke-dashoffset="100"
+      stroke-width="5"
+      stroke-linecap="round"
+    />
+  </svg>
+`;
 
 //#region AI functions
 
@@ -45,8 +80,8 @@ function actions(board) {
 function player(board) {
   //Returns player who has the next turn on a board.
 
-  var x_player = 0;
-  var o_player = 0;
+  let x_player = 0;
+  let o_player = 0;
 
   // Check if board is starting state
   if (JSON.stringify(board) === JSON.stringify(initial_state())) {
@@ -188,7 +223,6 @@ function minimax(board, alpha, beta) {
 
     for (var action of actions(board)) {
       best = Math.min(best, minimax(result(board, action), alpha, beta));
-
       beta = Math.min(beta, best);
 
       // Alpha Beta Pruning
@@ -201,10 +235,10 @@ function minimax(board, alpha, beta) {
 }
 
 function findBestMove(board) {
+  const alpha = -Infinity;
+  const beta = Infinity;
   let bestVal;
   let bestMove = new Array();
-  var alpha = -Infinity;
-  var beta = Infinity;
 
   if (user === O) {
     bestVal = -Infinity;
@@ -212,9 +246,8 @@ function findBestMove(board) {
     bestVal = Infinity;
   }
 
-  for (var action of actions(board)) {
+  for (const action of actions(board)) {
     let moveVal = minimax(result(board, action), alpha, beta);
-
     if (user === O) {
       if (moveVal > bestVal) {
         bestMove = action;
@@ -269,10 +302,10 @@ function popup(AI) {
       if (ai_turn && game_mode_cpu) {
         move = findBestMove(board);
         if (player(board) === X) {
-          boxsID[move[0]][move[1]].style.color = 'red';
+          boxsID[move[0]][move[1]].innerHTML = cross_element;
           boxsID[move[0]][move[1]].disabled = true;
         } else {
-          boxsID[move[0]][move[1]].style.color = 'blue';
+          boxsID[move[0]][move[1]].innerHTML = circle_element;
           boxsID[move[0]][move[1]].disabled = true;
         }
         board = result(board, move);
@@ -383,10 +416,10 @@ function game() {
       move = findBestMove(board);
 
       if (player(board) === X) {
-        boxsID[move[0]][move[1]].style.color = 'red';
+        boxsID[move[0]][move[1]].innerHTML = cross_element;
         boxsID[move[0]][move[1]].disabled = true;
       } else {
-        boxsID[move[0]][move[1]].style.color = 'blue';
+        boxsID[move[0]][move[1]].innerHTML = circle_element;
         boxsID[move[0]][move[1]].disabled = true;
       }
 
@@ -394,7 +427,6 @@ function game() {
       ai_turn = false;
 
       updateButtonTexts();
-
       if (terminal(board)) {
         won = winner(board);
         msg.innerHTML = 'Player ' + won + ' Won';
@@ -437,13 +469,18 @@ const placeToPlay = {
   9: { x: 2, y: 2 },
 };
 
+// delay function
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 // Function called when user click on one grid box
 function handleClickButton(btn) {
   const place = placeToPlay[btn];
   if (user === X) {
-    boxsID[place.x][place.y].style.color = 'red';
+    boxsID[place.x][place.y].innerHTML = cross_element;
   } else {
-    boxsID[place.x][place.y].style.color = 'blue';
+    boxsID[place.x][place.y].innerHTML = circle_element;
   }
 
   boxsID[place.x][place.y].value = user;
