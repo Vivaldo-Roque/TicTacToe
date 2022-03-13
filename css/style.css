@@ -13,6 +13,12 @@ body {
   --dark-green: #028d5a;
   --red: #FF073A;
   --blue: #006AF9;
+  --fb: #4267B2;
+  --gh: #4078c0;
+  --gm: #c71610;
+  --ig: #bc2a8d;
+  --yt: #FF0000;
+  --ps: #01875f;
   --draw-speed: 0.2s
 }
 
@@ -143,9 +149,6 @@ h1 span {
   background-color: var(--dark-green);
 }
 
-input[type="text"] {
-  font-weight: bolder;
-}
 
 .type-container {
   display: grid;
@@ -372,4 +375,191 @@ path:nth-of-type(2) {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+.avatar {
+  margin-top: 35px;
+  border: 8px solid var(--white);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  -webkit-box-shadow: 8px 8px 12px 12px #222222; 
+  box-shadow: 4px 4px 8px 8px #222222;
+}
+
+h3 {
+  color: var(--white);
+  font-family: Poppins;
+  font-weight: 600;
+  size: 24px;
+}
+
+.social-network {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+a.social-btn {
+  background-color: #222222;
+  width: 240px;
+  height: 56px;
+  border: none;
+  margin: 0;
+  outline: none;
+  transition: all 0.3s;
+  position: relative;
+  padding: 0;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+}
+
+a.social-btn svg.btn-border {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+}
+
+a.social-btn svg.btn-border rect {
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 0;
+  stroke-dasharray: 422, 0;
+  transition: all .3s linear;
+}
+a.social-btn svg.fb-btn rect {
+  stroke: var(--fb);
+}
+
+a.social-btn svg.gh-btn rect {
+  stroke: var(--gh);
+}
+
+a.social-btn svg.gm-btn rect {
+  stroke: var(--gm);
+}
+
+a.social-btn svg.ig-btn rect {
+  stroke: var(--ig);
+}
+
+a.social-btn svg.ps-btn rect {
+  stroke: var(--ps);
+}
+
+a.social-btn svg.yt-btn rect {
+  stroke: var(--yt);
+}
+
+a.social-btn:hover svg.btn-border rect {
+  stroke-width: 5px;
+  stroke-dasharray: 56, 310;
+  stroke-dashoffset: 126;
+  transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+a.social-btn div {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+a.social-btn div svg {
+  width: 36px;
+  height: 36px;
+  fill: var(--white);
+  position: relative;
+
+  transition: all 0.3s;
+}
+
+a.social-btn div::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
+  z-index: -2;
+}
+
+a.social-btn div::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background-color: var(--white);
+  transition: all .3s;
+}
+a.social-btn:hover div::before {
+  height: 100%;
+}
+
+a.social-btn span {
+  font-family: Poppins;
+  size: 48px;
+  color: var(--white);
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+
+a.social-btn div.facebook {
+  background-color: var(--fb);
+}
+
+a.social-btn:hover div.facebook svg {
+  fill: var(--fb);
+}
+a.social-btn div.github {
+  background-color: var(--gh);
+}
+
+a.social-btn:hover div.github svg {
+  fill: var(--gh);
+}
+
+a.social-btn div.gmail {
+  background-color: var(--gm);
+}
+a.social-btn:hover div.gmail svg {
+  fill: var(--gm);
+}
+a.social-btn div.instagram {
+  background-color: var(--ig);
+}
+
+a.social-btn:hover div.instagram svg {
+  fill: var(--ig);
+}
+
+a.social-btn div.playstore {
+  background-color: var(--ps);
+}
+
+a.social-btn:hover div.playstore svg {
+  fill: var(--ps);
+}
+
+a.social-btn div.youtube {
+  background-color: var(--yt);
+}
+
+a.social-btn:hover div.youtube svg {
+  fill: var(--yt);
 }
