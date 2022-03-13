@@ -19,10 +19,10 @@ var user = '';
 const circle_element = `
   <svg class="naught" width="60" height="60" view-box="0 0 100 100">
       <circle
-        r="27"
+        r="25"
         cx="30"
         cy="30"
-        stroke-width="6"
+        stroke-width="10"
         stroke-linecap="round"
         stroke-dasharray="200"
         stroke-dashoffset="200"
@@ -32,20 +32,20 @@ const circle_element = `
 `;
 
 const cross_element = `
-  <svg class="cross" width="60" height="60" view-box="0 0 100 100">
+  <svg class="cross" width="60" height="60" viewBox="0 0 100 100">
     <path
-      d="M 60 0 L 0 60"
-      stroke-dasharray="100"
-      stroke-dashoffset="100"
-      stroke-width="5"
+      d="M 95 5 L 5 95"
+      stroke-dasharray="300"
+      stroke-dashoffset="300"
       stroke-linecap="round"
+      stroke-width="15"
     />
     <path
-      d="M 0 0 L 60 60"
-      stroke-dasharray="100"
-      stroke-dashoffset="100"
-      stroke-width="5"
+      d="M 5 5 L 95 95"
+      stroke-dasharray="300"
+      stroke-dashoffset="300"
       stroke-linecap="round"
+      stroke-width="15"
     />
   </svg>
 `;
@@ -64,7 +64,7 @@ function initial_state() {
 
 function actions(board) {
   //Returns set of all possible actions (i, j) available on the board.
-  var actions = new Array();
+  const actions = new Array();
 
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
@@ -154,9 +154,8 @@ function winner(board) {
   return null;
 }
 
+//Returns true if game is over, False otherwise.
 function terminal(board) {
-  //Returns true if game is over, False otherwise.
-
   if (
     winner(board) !== null ||
     (!board.some((row) => row.some((subRow) => subRow === EMPTY)) &&
@@ -168,11 +167,9 @@ function terminal(board) {
   }
 }
 
+//Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
 function utility(board) {
-  //Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
-
-  var res = winner(board);
-
+  const res = winner(board);
   if (res === X) {
     return 1;
   } else if (res === O) {
@@ -182,11 +179,9 @@ function utility(board) {
   }
 }
 
+//Returns the board that results from making move (i, j) on the board.
 function result(board, action) {
-  //Returns the board that results from making move (i, j) on the board.
-
-  var res = actions(board);
-
+  const res = actions(board);
   if (
     !res.some((element) => JSON.stringify(element) === JSON.stringify(action))
   ) {
@@ -194,19 +189,19 @@ function result(board, action) {
   }
 
   copy_board = JSON.parse(JSON.stringify(board));
-
   copy_board[action[0]][action[1]] = player(board);
 
   return copy_board;
 }
 
 function minimax(board, alpha, beta) {
+  let best;
   if (terminal(board)) {
     return utility(board);
   }
 
   if (player(board) === X) {
-    let best = -Infinity;
+    best = -Infinity;
 
     for (var action of actions(board)) {
       best = Math.max(best, minimax(result(board, action), alpha, beta));
@@ -219,7 +214,7 @@ function minimax(board, alpha, beta) {
     }
     return best;
   } else {
-    let best = Infinity;
+    best = Infinity;
 
     for (var action of actions(board)) {
       best = Math.min(best, minimax(result(board, action), alpha, beta));
@@ -230,6 +225,7 @@ function minimax(board, alpha, beta) {
         break;
       }
     }
+
     return best;
   }
 }

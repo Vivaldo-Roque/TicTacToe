@@ -8,13 +8,10 @@
   </head>
 
   <body onload="initVariables();">
-    <div id="page-container">
+    <div class="container">
       <div>
         <ul class="topnav">
           <li><a href="/index.html" class="logo">VR</a></li>
-          <li><a href="/index.html">Início</a></li>
-          <li><a onclick="oneVsOne();">1 VS 1</a></li>
-          <li><a onclick="oneVsCpu();">1 VS CPU</a></li>
           <li><a href="pages/contact.html">Contato</a></li>
           <li class="right">
             <a class="active" href="pages/about.html">Sobre</a>
@@ -22,29 +19,40 @@
         </ul>
       </div>
 
-      <div id="content-wrap">
-        <h1>Tic Tac Toe</h1>
-        <p id="ins">
-          O jogo começa apenas tocando em caixa
-          <br />
-          <br />
-          O primeiro jogador começa como <b>Jogador X</b>
-          <br />
-          <br />
-          E
-          <br />
-          <br />
-          Segundo Jogador como <b>Jogador O</b>
-        </p>
+      <div class="content">
+        <h1>
+          Tic
+          <span>Tac</span>
+          Toe
+        </h1>
 
-        <br /><br />
+        <!-- pay 1 VS 1 and 1 VS CPU buttons -->
+        <div class="type-container">
+          <button type="button" onclick="oneVsOne();">
+            <div></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+              <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+              <path d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3c-95.73 0-173.3 77.6-173.3 173.3C0 496.5 15.52 512 34.66 512H413.3C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM479.1 320h-73.85C451.2 357.7 480 414.1 480 477.3C480 490.1 476.2 501.9 470 512h138C625.7 512 640 497.6 640 479.1C640 391.6 568.4 320 479.1 320zM432 256C493.9 256 544 205.9 544 144S493.9 32 432 32c-25.11 0-48.04 8.555-66.72 22.51C376.8 76.63 384 101.4 384 128c0 35.52-11.93 68.14-31.59 94.71C372.7 243.2 400.8 256 432 256z"/>
+            </svg>
+            <strong>1 VS 1</strong>
+          </button>
+
+          <button type="button" onclick="oneVsCpu();">
+            <div></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+              <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+              <path d="M9.375 233.4C3.375 239.4 0 247.5 0 256v128c0 8.5 3.375 16.62 9.375 22.62S23.5 416 32 416h32V224H32C23.5 224 15.38 227.4 9.375 233.4zM464 96H352V32c0-17.62-14.38-32-32-32S288 14.38 288 32v64H176C131.8 96 96 131.8 96 176V448c0 35.38 28.62 64 64 64h320c35.38 0 64-28.62 64-64V176C544 131.8 508.3 96 464 96zM256 416H192v-32h64V416zM224 296C201.9 296 184 278.1 184 256S201.9 216 224 216S264 233.9 264 256S246.1 296 224 296zM352 416H288v-32h64V416zM448 416h-64v-32h64V416zM416 296c-22.12 0-40-17.88-40-40S393.9 216 416 216S456 233.9 456 256S438.1 296 416 296zM630.6 233.4C624.6 227.4 616.5 224 608 224h-32v192h32c8.5 0 16.62-3.375 22.62-9.375S640 392.5 640 384V256C640 247.5 636.6 239.4 630.6 233.4z"/>
+            </svg>
+            <strong>1 VS CPU</strong>
+          </button>
+        </div>
+        
         <!-- 3*3 grid of Boxes -->
-
-        <div class="grid-container">
+        <div class="game-grid">
           <div>
             <button
               type="button"
-              class="btn"
+              class="game-cell"
               id="b1"
               onclick="handleClickButton(1);"
               readonly
@@ -54,7 +62,7 @@
             <button
               type="button"
               id="b2"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(2);"
               readonly
             />
@@ -63,7 +71,7 @@
             <button
               type="button"
               id="b3"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(3);"
               readonly
             />
@@ -73,7 +81,7 @@
             <button
               type="button"
               id="b4"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(4);"
               readonly
             />
@@ -82,7 +90,7 @@
             <button
               type="button"
               id="b5"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(5);"
               readonly
             />
@@ -91,7 +99,7 @@
             <button
               type="button"
               id="b6"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(6);"
               readonly
             />
@@ -101,7 +109,7 @@
             <button
               type="button"
               id="b7"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(7);"
               readonly
             />
@@ -110,7 +118,7 @@
             <button
               type="button"
               id="b8"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(8);"
               readonly
             />
@@ -119,7 +127,7 @@
             <button
               type="button"
               id="b9"
-              class="btn"
+              class="game-cell"
               onclick="handleClickButton(9);"
               readonly
             />
@@ -127,16 +135,21 @@
         </div>
 
         <!-- Grid end here  -->
-        <br /><br /><br />
-        <!-- Button to reset game -->
-        <button id="but" class="reset-btn" onclick="restart()">
-          Reiniciar
-        </button>
 
-        <br /><br />
-        <!-- Space to show player turn -->
-        <p id="print"></p>
-        <br /><br />
+        <!-- games status action  -->
+        <div class="status-action">
+          <!-- Space to show player turn -->
+          <div>
+            <strong id="print" class="print"></s>
+          </div>
+
+
+          <!-- Button to reset game -->
+          <a href="#reset" onclick="restart()" class="link"
+            ><strong>Reiniciar</strong>
+          </a>
+        </div>
+        
         <div class="popup_box">
           <h1>Escolha entre "X" ou "O"</h1>
           <div class="btns">
