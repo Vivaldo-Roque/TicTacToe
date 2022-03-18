@@ -279,7 +279,7 @@ h1 span {
   grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto;
   justify-content: center;
-  margin-bottom: 40px;
+  gap: 10px;
 }
 
 
@@ -461,6 +461,7 @@ a.social-btn svg.btn-border rect {
   stroke-dasharray: 422, 0;
   transition: all .3s linear;
 }
+
 a.social-btn svg.fb-btn rect {
   stroke: var(--fb);
 }
@@ -531,6 +532,7 @@ a.social-btn div::before {
   background-color: var(--white);
   transition: all .3s;
 }
+
 a.social-btn:hover div::before {
   height: 100%;
 }
@@ -551,6 +553,7 @@ a.social-btn div.facebook {
 a.social-btn:hover div.facebook svg {
   fill: var(--fb);
 }
+
 a.social-btn div.github {
   background-color: var(--gh);
 }
