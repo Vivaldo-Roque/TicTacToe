@@ -302,7 +302,7 @@ function popup(AI) {
       game_mode_cpu = AI;
       copyButtonTextsToBoard();
       if (ai_turn && game_mode_cpu) {
-        move = findBestMove(board);
+        move = findBestMove(board, user);
         if (player(board) === X) {
           boxsID[move[0]][move[1]].innerHTML = cross_element;
           boxsID[move[0]][move[1]].disabled = true;
@@ -427,7 +427,7 @@ function game() {
     return;
   } else {
     if (ai_turn && game_mode_cpu) {
-      move = findBestMove(board);
+      move = findBestMove(board, user);
 
       if (player(board) === X) {
         boxsID[move[0]][move[1]].innerHTML = cross_element;
