@@ -300,19 +300,11 @@ function popup(AI) {
         }
       }
       game_mode_cpu = AI;
-      copyButtonTextsToBoard();
+
       if (ai_turn && game_mode_cpu) {
-        move = findBestMove(board, user);
-        if (player(board) === X) {
-          boxsID[move[0]][move[1]].innerHTML = cross_element;
-          boxsID[move[0]][move[1]].disabled = true;
-        } else {
-          boxsID[move[0]][move[1]].innerHTML = circle_element;
-          boxsID[move[0]][move[1]].disabled = true;
-        }
-        board = result(board, move);
-        updateButtonTexts();
-        ai_turn = false;
+        disableAllButtons();
+        setTimeout(setAiMove1, 3000);
+
       }
     });
   } else {
@@ -410,8 +402,62 @@ function copyButtonTextsToBoard() {
   ];
 }
 
+function setAiMove1() {
+
+  copyButtonTextsToBoard();
+
+  move = findBestMove(board, user);
+
+  if (player(board) === X) {
+    boxsID[move[0]][move[1]].innerHTML = cross_element;
+    boxsID[move[0]][move[1]].disabled = true;
+  } else {
+    boxsID[move[0]][move[1]].innerHTML = circle_element;
+    boxsID[move[0]][move[1]].disabled = true;
+  }
+  board = result(board, move);
+  updateButtonTexts();
+  ai_turn = false;
+  enableAllButtons();
+  msg.innerHTML = 'Player ' + player(board) + ' Turn';
+
+}
+
+function setAiMove2() {
+
+  move = findBestMove(board, user);
+
+  if (player(board) === X) {
+    boxsID[move[0]][move[1]].innerHTML = cross_element;
+    boxsID[move[0]][move[1]].disabled = true;
+  } else {
+    boxsID[move[0]][move[1]].innerHTML = circle_element;
+    boxsID[move[0]][move[1]].disabled = true;
+  }
+
+  board = result(board, move);
+  ai_turn = false;
+
+  updateButtonTexts();
+  if (terminal(board)) {
+    won = winner(board);
+    msg.innerHTML = 'Player ' + won + ' Won';
+    msg.style.color = "#04AA6D";
+    if (won === null) {
+      msg.innerHTML = 'Tie';
+    }
+    disableAllButtons();
+    return;
+  }
+
+  msg.innerHTML = 'Player ' + player(board) + ' Turn';
+
+  enableAllButtons();
+}
+
 // Function called whenever user tab on any box
 function game() {
+
   copyButtonTextsToBoard();
 
   ai_turn = true;
@@ -427,30 +473,9 @@ function game() {
     return;
   } else {
     if (ai_turn && game_mode_cpu) {
-      move = findBestMove(board, user);
+      disableAllButtons();
+      setTimeout(setAiMove2, 3000);
 
-      if (player(board) === X) {
-        boxsID[move[0]][move[1]].innerHTML = cross_element;
-        boxsID[move[0]][move[1]].disabled = true;
-      } else {
-        boxsID[move[0]][move[1]].innerHTML = circle_element;
-        boxsID[move[0]][move[1]].disabled = true;
-      }
-
-      board = result(board, move);
-      ai_turn = false;
-
-      updateButtonTexts();
-      if (terminal(board)) {
-        won = winner(board);
-        msg.innerHTML = 'Player ' + won + ' Won';
-        msg.style.color = "#04AA6D";
-        if (won === null) {
-          msg.innerHTML = 'Tie';
-        }
-        disableAllButtons();
-        return;
-      }
     }
   }
 
