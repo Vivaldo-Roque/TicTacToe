@@ -230,6 +230,8 @@ var ai_turn = true;
 var game_mode_cpu = true;
 var start_x_o = true;
 var user = '';
+var refreshIntervalId;
+var blink;
 
 //HTML code for Circle
 const circle_element = `
@@ -278,7 +280,12 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Player ' + player(board) + ' Turn';
+      msg.innerHTML = 'Vez do jogador ' + player(board);
+      if (player(board) === X) {
+        msg.style.color = "#FF073A";
+      } else if (player(board) === O) {
+        msg.style.color = "#006AF9";
+      }
       user = X;
       for (var i = 0; i < 3; i++) {
         for (var j = 0; j < 3; j++) {
@@ -292,7 +299,12 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Player ' + player(board) + ' Turn';
+      msg.innerHTML = 'Vez do jogador ' + player(board);
+      if (player(board) === X) {
+        msg.style.color = "#FF073A";
+      } else if (player(board) === O) {
+        msg.style.color = "#006AF9";
+      }
       user = O;
       for (var i = 0; i < 3; i++) {
         for (var j = 0; j < 3; j++) {
@@ -303,6 +315,10 @@ function popup(AI) {
 
       if (ai_turn && game_mode_cpu) {
         disableAllButtons();
+        blink = document.getElementById('blink');
+        refreshIntervalId = setInterval(function () {
+          blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+        }, 500);
         setTimeout(setAiMove1, 3000);
 
       }
@@ -312,16 +328,22 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Player ' + X + ' Turn';
+      msg.innerHTML = 'Vez do jogador ' + X;
       user = X;
+      if (user === X) {
+        msg.style.color = "#FF073A";
+      }
       game_mode_cpu = false;
     });
     myBtn2.addEventListener('click', function () {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Player ' + O + ' Turn';
+      msg.innerHTML = 'Vez do jogador ' + O;
       user = O;
+      if (user === O) {
+        msg.style.color = "#006AF9";
+      }
       game_mode_cpu = false;
     });
   }
@@ -419,8 +441,14 @@ function setAiMove1() {
   updateButtonTexts();
   ai_turn = false;
   enableAllButtons();
-  msg.innerHTML = 'Player ' + player(board) + ' Turn';
-
+  msg.innerHTML = 'Vez do jogador ' + player(board);
+  if (player(board) === X) {
+    msg.style.color = "#FF073A";
+  } else if (player(board) === O) {
+    msg.style.color = "#006AF9";
+  }
+  clearInterval(refreshIntervalId);
+  blink.style.opacity = 1;
 }
 
 function setAiMove2() {
@@ -441,18 +469,26 @@ function setAiMove2() {
   updateButtonTexts();
   if (terminal(board)) {
     won = winner(board);
-    msg.innerHTML = 'Player ' + won + ' Won';
+    msg.innerHTML = 'Jogador ' + won + ' venceu!';
     msg.style.color = "#04AA6D";
     if (won === null) {
-      msg.innerHTML = 'Tie';
+      msg.innerHTML = 'Empate';
     }
     disableAllButtons();
     return;
   }
 
-  msg.innerHTML = 'Player ' + player(board) + ' Turn';
+  msg.innerHTML = 'Vez do jogador ' + player(board);
+  if (player(board) === X) {
+    msg.style.color = "#FF073A";
+  } else if (player(board) === O) {
+    msg.style.color = "#006AF9";
+  }
 
   enableAllButtons();
+
+  clearInterval(refreshIntervalId);
+  blink.style.opacity = 1;
 }
 
 // Function called whenever user tab on any box
@@ -464,16 +500,20 @@ function game() {
 
   if (terminal(board)) {
     won = winner(board);
-    msg.innerHTML = 'Player ' + won + ' Won';
+    msg.innerHTML = 'Jogador ' + won + ' venceu!';
     msg.style.color = "#04AA6D";
     if (won === null) {
-      msg.innerHTML = 'Tie';
+      msg.innerHTML = 'Empate';
     }
     disableAllButtons();
     return;
   } else {
     if (ai_turn && game_mode_cpu) {
       disableAllButtons();
+      blink = document.getElementById('blink');
+      refreshIntervalId = setInterval(function () {
+        blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
+      }, 500);
       setTimeout(setAiMove2, 3000);
 
     }
@@ -483,14 +523,19 @@ function game() {
   if (!game_mode_cpu) {
     user = player(board);
   }
-  msg.innerHTML = 'Player ' + player(board) + ' Turn';
+  msg.innerHTML = 'Vez do jogador ' + player(board);
+  if (player(board) === X) {
+    msg.style.color = "#FF073A";
+  } else if (player(board) === O) {
+    msg.style.color = "#006AF9";
+  }
 
   if (terminal(board)) {
     won = winner(board);
-    msg.innerHTML = 'Player ' + won + ' Won';
+    msg.innerHTML = 'Jogador ' + won + ' venceu!';
     msg.style.color = "#04AA6D";
     if (won === null) {
-      msg.innerHTML = 'Tie';
+      msg.innerHTML = 'Empate';
     }
     disableAllButtons();
     return;
@@ -509,11 +554,6 @@ const placeToPlay = {
   8: { x: 2, y: 1 },
   9: { x: 2, y: 2 },
 };
-
-// delay function
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 // Function called when user click on one grid box
 function handleClickButton(btn) {

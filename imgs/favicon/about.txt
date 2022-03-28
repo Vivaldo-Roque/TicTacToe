@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Black Han Sans
+- Font Author: Copyright 2015 The Black Han Sans Authors
+- Font Source: http://fonts.gstatic.com/s/blackhansans/v13/ea8Aad44WunzF9a-dL6toA8r8nqVIXSkH-Hc.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

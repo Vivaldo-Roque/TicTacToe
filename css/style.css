@@ -593,3 +593,7 @@ a.social-btn div.youtube {
 a.social-btn:hover div.youtube svg {
   fill: var(--yt);
 }
+
+#blink {
+  transition: 0.4s;
+}
