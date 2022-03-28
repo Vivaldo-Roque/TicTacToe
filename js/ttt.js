@@ -315,7 +315,6 @@ function popup(AI) {
 
       if (ai_turn && game_mode_cpu) {
         disableAllButtons();
-        blink = document.getElementById('blink');
         refreshIntervalId = setInterval(function () {
           blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
         }, 500);
@@ -375,6 +374,7 @@ function initVariables() {
   boxsID[2][1] = document.getElementById('b8');
   boxsID[2][2] = document.getElementById('b9');
   msg = document.getElementById('print');
+  blink = document.getElementById('blink');
   disableAllButtons();
 }
 
@@ -475,6 +475,8 @@ function setAiMove2() {
       msg.innerHTML = 'Empate';
     }
     disableAllButtons();
+    clearInterval(refreshIntervalId);
+    blink.style.opacity = 1;
     return;
   }
 
@@ -510,7 +512,6 @@ function game() {
   } else {
     if (ai_turn && game_mode_cpu) {
       disableAllButtons();
-      blink = document.getElementById('blink');
       refreshIntervalId = setInterval(function () {
         blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
       }, 500);
