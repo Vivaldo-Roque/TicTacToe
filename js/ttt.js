@@ -232,6 +232,9 @@ var start_x_o = true;
 var user = '';
 var refreshIntervalId;
 var blink;
+var crossAudio;
+var circleAudio;
+var jqueryButtons = Array();
 
 //HTML code for Circle
 const circle_element = `
@@ -375,7 +378,24 @@ function initVariables() {
   boxsID[2][2] = document.getElementById('b9');
   msg = document.getElementById('print');
   blink = document.getElementById('blink');
+  crossAudio = document.getElementById('crossAudio');
+  circleAudio = document.getElementById('circleAudio');
+  crossAudio.playbackRate = 2;
+  circleAudio.playbackRate = 2;
+  initLinesPositions();
   disableAllButtons();
+}
+
+function initLinesPositions() {
+  jqueryButtons[0] = $('#b1').position();
+  jqueryButtons[1] = $('#b2').position();
+  jqueryButtons[2] = $('#b3').position();
+  jqueryButtons[3] = $('#b4').position();
+  jqueryButtons[4] = $('#b5').position();
+  jqueryButtons[5] = $('#b6').position();
+  jqueryButtons[6] = $('#b7').position();
+  jqueryButtons[7] = $('#b8').position();
+  jqueryButtons[8] = $('#b9').position();
 }
 
 // Function to reset game
@@ -431,9 +451,11 @@ function setAiMove1() {
   move = findBestMove(board, user);
 
   if (player(board) === X) {
+    playCrossAudio();
     boxsID[move[0]][move[1]].innerHTML = cross_element;
     boxsID[move[0]][move[1]].disabled = true;
   } else {
+    playCircleAudio();
     boxsID[move[0]][move[1]].innerHTML = circle_element;
     boxsID[move[0]][move[1]].disabled = true;
   }
@@ -456,9 +478,11 @@ function setAiMove2() {
   move = findBestMove(board, user);
 
   if (player(board) === X) {
+    playCrossAudio();
     boxsID[move[0]][move[1]].innerHTML = cross_element;
     boxsID[move[0]][move[1]].disabled = true;
   } else {
+    playCircleAudio();
     boxsID[move[0]][move[1]].innerHTML = circle_element;
     boxsID[move[0]][move[1]].disabled = true;
   }
@@ -471,6 +495,7 @@ function setAiMove2() {
     won = winner(board);
     msg.innerHTML = 'Jogador ' + won + ' venceu!';
     msg.style.color = "#04AA6D";
+    drawLine();
     if (won === null) {
       msg.innerHTML = 'Empate';
     }
@@ -504,6 +529,7 @@ function game() {
     won = winner(board);
     msg.innerHTML = 'Jogador ' + won + ' venceu!';
     msg.style.color = "#04AA6D";
+    drawLine();
     if (won === null) {
       msg.innerHTML = 'Empate';
     }
@@ -535,6 +561,7 @@ function game() {
     won = winner(board);
     msg.innerHTML = 'Jogador ' + won + ' venceu!';
     msg.style.color = "#04AA6D";
+    drawLine();
     if (won === null) {
       msg.innerHTML = 'Empate';
     }
@@ -560,8 +587,10 @@ const placeToPlay = {
 function handleClickButton(btn) {
   const place = placeToPlay[btn];
   if (user === X) {
+    playCrossAudio();
     boxsID[place.x][place.y].innerHTML = cross_element;
   } else {
+    playCircleAudio();
     boxsID[place.x][place.y].innerHTML = circle_element;
   }
 
@@ -569,3 +598,153 @@ function handleClickButton(btn) {
   boxsID[place.x][place.y].disabled = true;
   game();
 }
+
+function playCrossAudio() {
+  crossAudio.play();
+}
+
+function playCircleAudio() {
+  circleAudio.play();
+}
+
+function drawLine() {
+
+  if (document.getElementById("lineSvg")) {
+    document.getElementById("lineSvg").remove();
+  }
+
+  var pos1;
+  var pos2;
+  var x1;
+  var y1;
+  var x2;
+  var y2;
+
+  // cross
+  if (board[0][0] === won && board[2][2] === won && board[1][1] === won) {
+
+    pos1 = jqueryButtons[0];
+    pos2 = jqueryButtons[8];
+
+    x1 = (pos1.left + 100 / 2) - 40;
+    y1 = (pos1.top + 100 / 2) - 40;
+    x2 = (pos2.left + 100 / 2) + 40;
+    y2 = (pos2.top + 100 / 2) + 40;
+
+  } else if (board[2][0] === won && board[0][2] === won && board[1][1] === won) {
+
+    pos1 = jqueryButtons[6];
+    pos2 = jqueryButtons[2];
+
+    x1 = (pos1.left + 100 / 2) - 40;
+    y1 = (pos1.top + 100 / 2) + 40;
+    x2 = (pos2.left + 100 / 2) + 40;
+    y2 = (pos2.top + 100 / 2) - 40;
+
+    // line inside horizontal
+  } else if (board[1][0] === won && board[1][2] === won && board[1][1] === won) {
+
+    pos1 = jqueryButtons[3];
+    pos2 = jqueryButtons[5];
+
+    x1 = pos1.left;
+    y1 = pos1.top + 100 / 2;
+    x2 = pos2.left + 100;
+    y2 = pos2.top + 100 / 2;
+
+    // line inside vertical
+  } else if (board[0][1] === won && board[2][1] === won && board[1][1] === won) {
+
+    pos1 = jqueryButtons[1];
+    pos2 = jqueryButtons[7];
+
+    x1 = pos1.left + 99 / 2;
+    y1 = pos1.top;
+    x2 = pos2.left + 99 / 2;
+    y2 = pos2.top + 100;
+
+    // line outside horizontal
+  } else if (board[0][0] === won && board[0][1] === won && board[0][2] === won) {
+
+    pos1 = jqueryButtons[0];
+    pos2 = jqueryButtons[2];
+
+    x1 = pos1.left;
+    y1 = pos1.top + 100 / 2;
+    x2 = pos2.left + 100;
+    y2 = pos2.top + 100 / 2;
+
+  } else if (board[2][0] === won && board[2][1] === won && board[2][2] === won) {
+
+    pos1 = jqueryButtons[6];
+    pos2 = jqueryButtons[8];
+
+    x1 = pos1.left;
+    y1 = pos1.top + 100 / 2;
+    x2 = pos2.left + 100;
+    y2 = pos2.top + 100 / 2;
+
+    // line outside vertical
+  } else if (board[0][0] === won && board[1][0] === won && board[2][0] === won) {
+
+    pos1 = jqueryButtons[0];
+    pos2 = jqueryButtons[6];
+
+    x1 = pos1.left + 99 / 2;
+    y1 = pos1.top;
+    x2 = pos2.left + 99 / 2;
+    y2 = pos2.top + 100;
+
+  } else if (board[0][2] === won && board[1][2] === won && board[2][2] === won) {
+
+    pos1 = jqueryButtons[2];
+    pos2 = jqueryButtons[8];
+
+    x1 = pos1.left + 99 / 2;
+    y1 = pos1.top;
+    x2 = pos2.left + 99 / 2;
+    y2 = pos2.top + 100;
+
+  }
+
+  /*
+  
+  to get the center coordinates of the button use this formula:
+
+  centerX = $("#b1").position().left + width / 2;
+  centerY = $("#b1").position().left + height / 2;
+
+  note: in css i used 100px for width and height
+  
+  */
+
+  var line_element = `
+  <svg id="lineSvg">
+    <line id="line1" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">
+      <animate id="anim1" attributeName="x2" from="${x1}" to="${x2}" begin="1s" dur="2s" repeatCount="1" restart="whenNotActive" /> 
+      <animate id="anim2" attributeName="y2" from="${y1}" to="${y2}" begin="1s" dur="2s" repeatCount="1" restart="whenNotActive" /> 
+    </line>
+  </svg>
+`;
+
+  var gridLineContainer = document.getElementById("grid-line-container");
+
+  console.log(line_element);
+
+  gridLineContainer.innerHTML += line_element;
+
+  startLineAnimation();
+
+}
+
+function startLineAnimation() {
+  var anim1 = document.getElementById("anim1");
+  var anim2 = document.getElementById("anim2");
+  anim1.beginElement();
+  anim2.beginElement();
+}
+
+// Run when page gets full loaded
+window.onload = function () {
+  initVariables();
+};

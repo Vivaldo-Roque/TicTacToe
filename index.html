@@ -2,126 +2,140 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <script src="./js/ttt.js"></script>
-  <link rel="apple-touch-icon" sizes="180x180" href="./imgs/favicon/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/ttt.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="./imgs/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./imgs/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./imgs/favicon/favicon-16x16.png">
     <link rel="manifest" href="./imgs/favicon/site.webmanifest">
-  <title>Tic Tac Toe</title>
+    <title>Tic Tac Toe</title>
 </head>
 
-<body onload="initVariables();">
-  <div class="container">
-    <div>
-      <ul class="topnav">
-        <!-- <li><a href="/index.html" class="logo">VR</a></li> -->
-        <li><a href="https://vivaldo-roque.github.io/TicTacToe/" class="logo">VR</a></li>
-        <li><a href="pages/contact.html">Contato</a></li>
-        <li class="right">
-          <a class="active" href="pages/about.html">Sobre</a>
-        </li>
-      </ul>
+<body>
+
+    <audio id="crossAudio">
+        <source src="./sound/pencil_x.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <audio id="circleAudio">
+        <source src="./sound/pencil_o.mp3" type="audio/mp3">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <div class="container">
+        <div>
+            <ul class="topnav">
+                <!-- <li><a href="/index.html" class="logo">VR</a></li> -->
+                <li><a href="https://vivaldo-roque.github.io/TicTacToe/" class="logo">VR</a></li>
+                <li><a href="pages/contact.html">Contato</a></li>
+                <li class="right">
+                    <a class="active" href="pages/about.html">Sobre</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-wrap">
+
+            <h1>
+                Tic Tac Toe
+            </h1>
+
+            <p><b>Nota:</b> X sempre jogará primeiro!</p>
+
+            <div class="cover1">
+                <!-- pay 1 VS 1 and 1 VS CPU buttons -->
+                <br><br>
+                <div class="type-container">
+                    <button type="button" onclick="oneVsOne();" id="1vs1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                            <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path
+                                d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3c-95.73 0-173.3 77.6-173.3 173.3C0 496.5 15.52 512 34.66 512H413.3C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM479.1 320h-73.85C451.2 357.7 480 414.1 480 477.3C480 490.1 476.2 501.9 470 512h138C625.7 512 640 497.6 640 479.1C640 391.6 568.4 320 479.1 320zM432 256C493.9 256 544 205.9 544 144S493.9 32 432 32c-25.11 0-48.04 8.555-66.72 22.51C376.8 76.63 384 101.4 384 128c0 35.52-11.93 68.14-31.59 94.71C372.7 243.2 400.8 256 432 256z" />
+                        </svg>
+                        <strong>1 VS 1</strong>
+                    </button>
+
+                    <button type="button" onclick="oneVsCpu();" id="1vscpu">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" id="blink">
+                            <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                            <path
+                                d="M9.375 233.4C3.375 239.4 0 247.5 0 256v128c0 8.5 3.375 16.62 9.375 22.62S23.5 416 32 416h32V224H32C23.5 224 15.38 227.4 9.375 233.4zM464 96H352V32c0-17.62-14.38-32-32-32S288 14.38 288 32v64H176C131.8 96 96 131.8 96 176V448c0 35.38 28.62 64 64 64h320c35.38 0 64-28.62 64-64V176C544 131.8 508.3 96 464 96zM256 416H192v-32h64V416zM224 296C201.9 296 184 278.1 184 256S201.9 216 224 216S264 233.9 264 256S246.1 296 224 296zM352 416H288v-32h64V416zM448 416h-64v-32h64V416zM416 296c-22.12 0-40-17.88-40-40S393.9 216 416 216S456 233.9 456 256S438.1 296 416 296zM630.6 233.4C624.6 227.4 616.5 224 608 224h-32v192h32c8.5 0 16.62-3.375 22.62-9.375S640 392.5 640 384V256C640 247.5 636.6 239.4 630.6 233.4z" />
+                        </svg>
+                        <strong>1 VS CPU</strong>
+                    </button>
+                </div>
+
+                <div class="parent" id="grid-line-container">
+
+                    <!-- 3*3 grid of Boxes -->
+                    <div class="game-grid">
+                        <div>
+                            <button type="button" class="game-cell" id="b1" onclick="handleClickButton(1);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b2" class="game-cell" onclick="handleClickButton(2);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b3" class="game-cell" onclick="handleClickButton(3);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b4" class="game-cell" onclick="handleClickButton(4);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b5" class="game-cell" onclick="handleClickButton(5);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b6" class="game-cell" onclick="handleClickButton(6);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b7" class="game-cell" onclick="handleClickButton(7);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b8" class="game-cell" onclick="handleClickButton(8);" readonly />
+                        </div>
+                        <div>
+                            <button type="button" id="b9" class="game-cell" onclick="handleClickButton(9);" readonly />
+                        </div>
+                    </div>
+                    <!-- Grid end here  -->
+
+                </div>
+
+                <!-- games status action  -->
+                <div class="status-action">
+                    <!-- Space to show player turn -->
+                    <div>
+                        <strong id="print" class="print"></strong>
+                    </div>
+
+                    <!-- Button to reset game -->
+                    <button id="but" onclick="restart()">
+                        Reiniciar
+                    </button>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="popup_box">
+                <h1>Escolha entre "X" ou "O"</h1>
+                <div class="btns">
+                    <a href="javascript:void(0)" class="btn1">X</a>
+                    <a href="javascript:void(0)" class="btn2">O</a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <footer>
+                <p>Autor: Vivaldo Roque<br /></p>
+            </footer>
+        </div>
     </div>
 
-    <div class="content-wrap">
-      
-      <h1>
-        Tic
-        Tac
-        Toe
-      </h1>
-
-      <p><b>Nota:</b> X sempre jogará primeiro!</p>
-
-      <div class="cover1">
-        <!-- pay 1 VS 1 and 1 VS CPU buttons -->
-        <br><br>
-        <div class="type-container">
-          <button type="button" onclick="oneVsOne();" id="1vs1">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-              <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-              <path
-                d="M224 256c70.7 0 128-57.31 128-128S294.7 0 224 0C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3c-95.73 0-173.3 77.6-173.3 173.3C0 496.5 15.52 512 34.66 512H413.3C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM479.1 320h-73.85C451.2 357.7 480 414.1 480 477.3C480 490.1 476.2 501.9 470 512h138C625.7 512 640 497.6 640 479.1C640 391.6 568.4 320 479.1 320zM432 256C493.9 256 544 205.9 544 144S493.9 32 432 32c-25.11 0-48.04 8.555-66.72 22.51C376.8 76.63 384 101.4 384 128c0 35.52-11.93 68.14-31.59 94.71C372.7 243.2 400.8 256 432 256z" />
-            </svg>
-            <strong>1 VS 1</strong>
-          </button>
-
-          <button type="button" onclick="oneVsCpu();" id="1vscpu">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" id="blink">
-              <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-              <path
-                d="M9.375 233.4C3.375 239.4 0 247.5 0 256v128c0 8.5 3.375 16.62 9.375 22.62S23.5 416 32 416h32V224H32C23.5 224 15.38 227.4 9.375 233.4zM464 96H352V32c0-17.62-14.38-32-32-32S288 14.38 288 32v64H176C131.8 96 96 131.8 96 176V448c0 35.38 28.62 64 64 64h320c35.38 0 64-28.62 64-64V176C544 131.8 508.3 96 464 96zM256 416H192v-32h64V416zM224 296C201.9 296 184 278.1 184 256S201.9 216 224 216S264 233.9 264 256S246.1 296 224 296zM352 416H288v-32h64V416zM448 416h-64v-32h64V416zM416 296c-22.12 0-40-17.88-40-40S393.9 216 416 216S456 233.9 456 256S438.1 296 416 296zM630.6 233.4C624.6 227.4 616.5 224 608 224h-32v192h32c8.5 0 16.62-3.375 22.62-9.375S640 392.5 640 384V256C640 247.5 636.6 239.4 630.6 233.4z" />
-            </svg>
-            <strong>1 VS CPU</strong>
-          </button>
-        </div>
-
-        <!-- 3*3 grid of Boxes -->
-        <div class="game-grid">
-          <div>
-            <button type="button" class="game-cell" id="b1" onclick="handleClickButton(1);" readonly />
-          </div>
-          <div>
-            <button type="button" id="b2" class="game-cell" onclick="handleClickButton(2);" readonly />
-          </div>
-          <div>
-            <button type="button" id="b3" class="game-cell" onclick="handleClickButton(3);" readonly />
-          </div>
-
-          <div>
-            <button type="button" id="b4" class="game-cell" onclick="handleClickButton(4);" readonly />
-          </div>
-          <div>
-            <button type="button" id="b5" class="game-cell" onclick="handleClickButton(5);" readonly />
-          </div>
-          <div>
-            <button type="button" id="b6" class="game-cell" onclick="handleClickButton(6);" readonly />
-          </div>
-
-          <div>
-            <button type="button" id="b7" class="game-cell" onclick="handleClickButton(7);" readonly />
-          </div>
-          <div>
-            <button type="button" id="b8" class="game-cell" onclick="handleClickButton(8);" readonly />
-          </div>
-          <div>
-            <button type="button" id="b9" class="game-cell" onclick="handleClickButton(9);" readonly />
-          </div>
-        </div>
-        <!-- Grid end here  -->
-
-        <!-- games status action  -->
-        <div class="status-action">
-          <!-- Space to show player turn -->
-          <div>
-            <strong id="print" class="print"></strong>
-          </div>
-
-          <!-- Button to reset game -->
-          <button id="but" onclick="restart()">
-            Reiniciar
-          </button>
-        </div>
-      </div>
-      <br><br>
-
-      <div class="popup_box">
-        <h1>Escolha entre "X" ou "O"</h1>
-        <div class="btns">
-          <a href="javascript:void(0)" class="btn1">X</a>
-          <a href="javascript:void(0)" class="btn2">O</a>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <footer>
-        <p>Autor: Vivaldo Roque<br /></p>
-      </footer>
-    </div>
-  </div>
 </body>
 
 </html>
