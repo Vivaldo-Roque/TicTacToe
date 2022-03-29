@@ -729,8 +729,6 @@ function drawLine() {
 
   var gridLineContainer = document.getElementById("grid-line-container");
 
-  console.log(line_element);
-
   gridLineContainer.innerHTML += line_element;
 
   startLineAnimation();
