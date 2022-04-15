@@ -91,6 +91,10 @@ ul li a.logo {
     font-family: Poppins;
 }
 
+.text{
+    text-indent: 25px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -125,7 +129,7 @@ h2 {
 }
 
 h3 {
-    color: var(--white);
+    color: var(--light-green);
     font-family: Poppins;
     font-weight: 600;
     size: 24px;

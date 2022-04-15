@@ -1,11 +1,12 @@
-//#region AI functions
+//#region AI functions / Funções da IA
 
 const X = 'X';
 const O = 'O';
 const EMPTY = '';
 
 function initial_state() {
-  //Returns starting state of the board.
+  // Returns starting state of the board.
+  // Retorna o estado inicial do tabuleiro.
 
   return [
     [EMPTY, EMPTY, EMPTY],
@@ -15,7 +16,8 @@ function initial_state() {
 }
 
 function actions(board) {
-  //Returns set of all possible actions (i, j) available on the board.
+  // Returns set of all possible actions (i, j) available on the board.
+  // Retorna um conjunto de todas as possiveis ações (i, j) disponiveis no tabuleiro, ou seja todas as possiveis jogadas.
   const actions = new Array();
 
   for (var i = 0; i < 3; i++) {
@@ -30,12 +32,14 @@ function actions(board) {
 }
 
 function player(board) {
-  //Returns player who has the next turn on a board.
+  // Returns player who has the next turn on a board.
+  // Retorna o jogador que fará a proxima jogada no tabuleiro.
 
   let x_player = 0;
   let o_player = 0;
 
   // Check if board is starting state
+  // Verifica se o tabuleiro está em estado inicial
   if (JSON.stringify(board) === JSON.stringify(initial_state())) {
     return X;
   }
@@ -65,7 +69,12 @@ function player(board) {
 }
 
 function winner(board) {
-  // Checking Vertically and Horizontally
+
+  // Check who player wins on board.
+  // Verifica qual jogador ganhou no tabuleiro.
+
+  // Checking Vertically and Horizontally.
+  // Verificação vertical e horizontal.
   var moves = [X, O];
 
   for (var i = 0; i < moves.length; i++) {
@@ -87,6 +96,7 @@ function winner(board) {
       }
     }
     // Checking on Cross
+    // Verificando as diagonais
     if (
       board[0][0] === moves[i] &&
       board[1][1] === moves[i] &&
@@ -106,7 +116,8 @@ function winner(board) {
   return null;
 }
 
-//Returns true if game is over, False otherwise.
+// Returns true if game is over, False otherwise.
+// Retorna verdadeiro se o jogo terminou, caso contrário falso.
 function terminal(board) {
   if (
     winner(board) !== null ||
@@ -120,6 +131,7 @@ function terminal(board) {
 }
 
 //Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
+// Retorna 1 se X ganhou o jogo, -1 se O ganhou o jogo, caso contrário 0.
 function utility(board) {
   const res = winner(board);
   if (res === X) {
@@ -131,7 +143,8 @@ function utility(board) {
   }
 }
 
-//Returns the board that results from making move (i, j) on the board.
+// Returns the board that results from making move (i, j) on the board.
+// Retorna o tabuleiro que resulta pelo ato de fazer um movimento (i, j) no tabuleiro.
 function result(board, action) {
   const res = actions(board);
   if (
@@ -146,6 +159,8 @@ function result(board, action) {
   return copy_board;
 }
 
+// Minimax algorithm implemetation
+// Implementação do algoritmo minimax
 function minimax(board, alpha, beta) {
   let best;
   if (terminal(board)) {
@@ -182,6 +197,8 @@ function minimax(board, alpha, beta) {
   }
 }
 
+// Returns best move on the board
+// Retorna o melhor movimento no tabuleiro
 function findBestMove(board, user) {
   const alpha = -Infinity;
   const beta = Infinity;
@@ -214,7 +231,8 @@ function findBestMove(board, user) {
 
 //#endregion
 
-// 2D array to save all instances of my buttons
+// 2D array to save all instance of my buttons
+// Vector 2D (2 dimensões) para salvar toda instância dos meus botões
 var boxsID = [
   [, ,],
   [, ,],
@@ -222,6 +240,7 @@ var boxsID = [
 ];
 
 // Variables to make the game work
+// Variavéis para fazer o jogo funcionar
 var msg;
 var board = initial_state();
 var move = Array();
@@ -236,7 +255,8 @@ var crossAudio;
 var circleAudio;
 var jqueryButtons = Array();
 
-//HTML code for Circle
+// HTML code for Circle
+// Código HTML para Circulo
 const circle_element = `
   <svg class="naught" width="60" height="60" view-box="0 0 100 100">
       <circle
@@ -252,7 +272,8 @@ const circle_element = `
   </svg>
 `;
 
-//HTML code for Cross
+// HTML code for Cross
+// Código HTML para Cruz
 const cross_element = `
   <svg class="cross" width="60" height="60" viewBox="0 0 100 100">
     <path
@@ -272,7 +293,8 @@ const cross_element = `
   </svg>
 `;
 
-// Function to show select side popup
+// Function to show select game mode and side popup
+// Função para mostrar diálogo de alerta para seleção do modo de jogo e lado.
 function popup(AI) {
   const myPopUp = document.getElementsByClassName('popup_box')[0];
   const myBtn1 = document.getElementsByClassName('btn1')[0];
@@ -352,6 +374,7 @@ function popup(AI) {
 }
 
 // Function for 1 vs 1
+// Função para jogar 1 contra 1
 function oneVsOne() {
   popup(false);
   document.getElementById("1vs1").disabled = true;
@@ -359,6 +382,7 @@ function oneVsOne() {
 }
 
 // Function for 1 vs cpu (AI)
+// Função para jogar 1 contra computador(AI)
 function oneVsCpu() {
   popup(true);
   document.getElementById("1vs1").disabled = true;
@@ -366,6 +390,7 @@ function oneVsCpu() {
 }
 
 // Function for initialize all needed variables
+// Função para incialização de todas a variavéis necessárias
 function initVariables() {
   boxsID[0][0] = document.getElementById('b1');
   boxsID[0][1] = document.getElementById('b2');
@@ -386,6 +411,8 @@ function initVariables() {
   disableAllButtons();
 }
 
+// Function that get all buttons coordenates in grade box, on screen using Jquery()
+// Função que faz uso do Jquery() para pegar as coordenadas de cada botão(caixa) na grade
 function initLinesPositions() {
   jqueryButtons[0] = $('#b1').position();
   jqueryButtons[1] = $('#b2').position();
@@ -399,6 +426,7 @@ function initLinesPositions() {
 }
 
 // Function to reset game
+// Função que reinicia o jogo
 function restart() {
   location.reload();
   for (var i = 0; i < 3; i++) {
@@ -409,6 +437,7 @@ function restart() {
 }
 
 // Function to disable all the buttons
+// Função que desliga todos os botões
 function disableAllButtons() {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
@@ -418,6 +447,7 @@ function disableAllButtons() {
 }
 
 // Function to enable all the buttons
+// FUnção que ativa todos os botões
 function enableAllButtons() {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
@@ -427,6 +457,7 @@ function enableAllButtons() {
 }
 
 // Function to update the text of all the buttons with the data in the board array
+// Função que atualiza o texto dos botões com o dado presente no vector 2D do tabuleiro
 function updateButtonTexts() {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
@@ -436,6 +467,7 @@ function updateButtonTexts() {
 }
 
 // Function to copy all button text to the board array
+// Função para copiar todos texto dos botões para o vector 2D do tabuleiro
 function copyButtonTextsToBoard() {
   board = [
     [boxsID[0][0].value, boxsID[0][1].value, boxsID[0][2].value],
@@ -444,6 +476,8 @@ function copyButtonTextsToBoard() {
   ];
 }
 
+// Function called by setTimeout() inside popup() function
+// Função chamada por setTimeout() dentro da função popup()
 function setAiMove1() {
 
   copyButtonTextsToBoard();
@@ -473,6 +507,8 @@ function setAiMove1() {
   blink.style.opacity = 1;
 }
 
+// Function called by setTimeout() inside game() function
+// Função chamada por setTimeout() dentro da função game()
 function setAiMove2() {
 
   move = findBestMove(board, user);
@@ -519,6 +555,7 @@ function setAiMove2() {
 }
 
 // Function called whenever user tab on any box
+// Função chamada sempre que o usuário clicar em uma caixa
 function game() {
 
   copyButtonTextsToBoard();
@@ -570,7 +607,8 @@ function game() {
   }
 }
 
-// object of places to play on the grid boxes
+// Object of places to play on the grid boxes
+// Objecto com os lugares a serem jogados na grade de caixas
 const placeToPlay = {
   1: { x: 0, y: 0 },
   2: { x: 0, y: 1 },
@@ -584,6 +622,7 @@ const placeToPlay = {
 };
 
 // Function called when user click on one grid box
+// Função chamada quando o usuário clica em uma das caixas na grade
 function handleClickButton(btn) {
   const place = placeToPlay[btn];
   if (user === X) {
@@ -599,14 +638,20 @@ function handleClickButton(btn) {
   game();
 }
 
+// Function to play pencil effect
+// Função que toca efeito de lápis
 function playCrossAudio() {
   crossAudio.play();
 }
 
+// Function to play pencil effect
+// Função que toca efeito de lápis
 function playCircleAudio() {
   circleAudio.play();
 }
 
+// Function that draw the line in SVG
+// Função responsável por gerar a linha em SVG
 function drawLine() {
 
   if (document.getElementById("lineSvg")) {
@@ -735,6 +780,8 @@ function drawLine() {
 
 }
 
+// Function that starts line animation
+// Função responsável por iniciar a animação da linha
 function startLineAnimation() {
   var anim1 = document.getElementById("anim1");
   var anim2 = document.getElementById("anim2");
@@ -743,6 +790,7 @@ function startLineAnimation() {
 }
 
 // Run when page gets full loaded
+// Executa quando a página é totalmente carregada
 window.onload = function () {
   initVariables();
 };
