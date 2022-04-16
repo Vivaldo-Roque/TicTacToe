@@ -1,7 +1,6 @@
 {
     "name": "Tic Tac Toe",
     "short_name": "Tic Tac Toe",
-    "scope": "TicTacToe/",
     "start_url": "/",
     "orientation": "portrait-primary",
     "icons": [
