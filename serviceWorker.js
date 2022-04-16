@@ -1,4 +1,4 @@
-var GHPATH = '${/TicTacToe}';
+var GHPATH = '${./TicTacToe}';
  
 var APP_PREFIX = 'TicTacToe_';
 
@@ -6,7 +6,7 @@ var VERSION = 'version_01';
 
 var CACHE_NAME = APP_PREFIX + VERSION;
 
-const URLS = [
+var URLS = [
   `${GHPATH}/`,
   `${GHPATH}/index.html`,
   `${GHPATH}/pages/about.html`,
