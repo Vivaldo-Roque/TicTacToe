@@ -1,8 +1,8 @@
-var GHPATH = '/TicTacToe';
+var GHPATH = './TicTacToe';
  
 var APP_PREFIX = 'TicTacToe_';
 
-var VERSION = 'version_01';
+var VERSION = 'version_02';
 
 var CACHE_NAME = APP_PREFIX + VERSION;
 
@@ -22,8 +22,7 @@ var URLS = [
   `${GHPATH}/imgs/diagram.png`,
   `${GHPATH}/imgs/avatar.png`,
   `${GHPATH}/sound/pencil_o.mp3`,
-  `${GHPATH}/sound/pencil_x.mp3`,
-  `${GHPATH}/manifest.webmanifest`
+  `${GHPATH}/sound/pencil_x.mp3`
 ];
 
 // Respond with cached resources
