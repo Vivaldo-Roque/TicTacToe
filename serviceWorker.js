@@ -18,6 +18,7 @@ var URLS = [
   `${GHPATH}/js/prism.js`,
   `${GHPATH}/js/navigation.js`,
   `${GHPATH}/js/ttt.js`,
+  `${GHPATH}/serviceWorker.js`,
   `${GHPATH}/imgs/diagram.png`,
   `${GHPATH}/imgs/avatar.png`,
   `${GHPATH}/sound/pencil_o.mp3`,
