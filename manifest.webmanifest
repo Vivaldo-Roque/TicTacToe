@@ -1,17 +1,17 @@
 {
     "name": "Tic Tac Toe",
     "short_name": "Tic Tac Toe",
-    "scope": "/tictactoe/",
-    "start_url": "/tictactoe/",
+    "scope": "/TicTacToe/",
+    "start_url": "/TicTacToe/",
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/tictactoe/imgs/favicon/android-chrome-192x192.png",
+            "src": "/TicTacToe/imgs/favicon/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/tictactoe/imgs/favicon/android-chrome-512x512.png",
+            "src": "/TicTacToe/imgs/favicon/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
