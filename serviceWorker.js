@@ -1,4 +1,4 @@
-var GHPATH = '${/TicTacToe}';
+var GHPATH = '/TicTacToe';
  
 var APP_PREFIX = 'TicTacToe_';
 
