@@ -1,4 +1,4 @@
-var GHPATH = '${/TicTacToe}';
+var GHPATH = '${/tictactoe}';
  
 var APP_PREFIX = 'TicTacToe_';
 
@@ -22,7 +22,8 @@ var URLS = [
   `${GHPATH}/imgs/diagram.png`,
   `${GHPATH}/imgs/avatar.png`,
   `${GHPATH}/sound/pencil_o.mp3`,
-  `${GHPATH}/sound/pencil_x.mp3`
+  `${GHPATH}/sound/pencil_x.mp3`,
+  `${GHPATH}/manifest.webmanifest`
 ];
 
 // Respond with cached resources
