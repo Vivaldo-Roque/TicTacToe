@@ -1,8 +1,8 @@
-var GHPATH = './TicTacToe';
+var GHPATH = '/TicTacToe';
  
 var APP_PREFIX = 'TicTacToe_';
 
-var VERSION = 'version_02';
+var VERSION = 'version_01';
 
 var CACHE_NAME = APP_PREFIX + VERSION;
 
