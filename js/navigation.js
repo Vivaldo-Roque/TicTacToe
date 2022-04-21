@@ -17,7 +17,7 @@ window.addEventListener("load", () => {
 
     // If we are at home page
     // Se estivermos na página principal
-    if (path === '/') {
+    if (path === '/' || path === '/TicTacToe/') {
         homeElement.classList.add("right");
         homeElement.children[0].classList.add("active");
     } else {
