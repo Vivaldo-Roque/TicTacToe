@@ -20,7 +20,7 @@ var URLS = [
   `${GHPATH}/js/ttt.js`,
   `${GHPATH}/serviceWorker.js`,
   `${GHPATH}/imgs/diagram.png`,
-  `${GHPATH}/imgs/avatar.png`,
+  `${GHPATH}/imgs/avatar.jpg`,
   `${GHPATH}/sound/pencil_o.mp3`,
   `${GHPATH}/sound/pencil_x.mp3`
 ];
@@ -40,7 +40,7 @@ self.addEventListener('fetch', function (e) {
 
       // You can omit if/else for console.log & put one line below like this too.
       // return request || fetch(e.request)
-    })
+    }).catch(err => console.log('Error while fetching assets', err))
   );
 });
 
@@ -50,7 +50,7 @@ self.addEventListener('install', function (e) {
     caches.open(CACHE_NAME).then(function (cache) {
       console.log('installing cache : ' + CACHE_NAME);
       return cache.addAll(URLS);
-    })
+    }).catch(err => console.log('Error installing cache', err))
   );
 });
 
