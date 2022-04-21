@@ -13,7 +13,11 @@ Instructions on how to use them in your own application are linked below.
 | Jquery.js | https://github.com/jquery/jquery/blob/main/README.md |
 | Prism.js | https://github.com/PrismJS/prism/blob/master/README.md |
 
-## contributors
+## Features
+
+- Added PWA (Progressive Web App) support.
+
+## Contributors
 [Edlânio Júlio](https://github.com/EdlanioJ)
 
 ## License
@@ -34,6 +38,10 @@ As instruções sobre como usá-los em seu próprio aplicativo estão no link ab
 | ------ | ------ |
 | Jquery.js | https://github.com/jquery/jquery/blob/main/README.md |
 | Prism.js | https://github.com/PrismJS/prism/blob/master/README.md |
+
+## Funcionalidades
+
+- Adicionado suporte PWA (Progressive Web App).
 
 ## Contribuidor
 [Edlânio Júlio](https://github.com/EdlanioJ)
