@@ -1,0 +1,282 @@
+/* Buttons formatting */
+
+#but {
+    box-sizing: border-box;
+    width: 95px;
+    height: 30px;
+    border: 1px solid #04AA6D;
+    margin: auto;
+    border-radius: 4px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    line-height: 30px;
+    vertical-align: middle;
+    background-color: #04AA6D;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn {
+    box-sizing: border-box;
+    width: 120px;
+    height: 40px;
+    border: 1px solid var(--light-green);
+    border-radius: 4px;
+    transition: background-color 0.5s;
+    background-color: var(--light-green);
+    color: var(--white);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--dark-green);
+}
+
+.type-container {
+    display: flex;
+    justify-content: space-between;
+    width: 319px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.type-container button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 90px;
+    height: 110px;
+    background-color: var(--grey);
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    border: 4px solid var(--white);
+    transition: border .4s;
+}
+
+.type-container button:hover {
+    border: 4px solid #dddddd;
+}
+
+.type-container button div {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    border: 4px solid var(--white);
+    top: 4px;
+    right: 4px;
+    transition: border .4s;
+}
+
+.type-container button:hover div {
+    border: 4px solid #dddddd;
+}
+
+.type-container button svg {
+    fill: var(--white);
+    margin-bottom: 2px;
+    width: 60px;
+    height: 60px;
+    transition: fill .4s;
+}
+
+.type-container button:hover svg {
+    fill: #dddddd;
+}
+
+.type-container button strong {
+    font-family: Poppins;
+    size: 18px;
+    color: var(--white);
+    font-weight: 900;
+    transition: color .4s;
+}
+
+.type-container button:hover strong {
+    color: #ddd;
+}
+
+
+/* Others game controls */
+
+.status-action {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0px 15px 0px;
+}
+
+.print {
+    font-family: Poppins;
+    color: dodgerblue;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#lineSvg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 320px;
+    width: 320px;    
+}
+
+.parent {
+    position: relative;
+    height: 478px;
+    width: 320px;
+}
+
+/* 3*3 Grid */
+
+.game-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    align-content: center;
+    display: grid;
+    height: 318px;
+    width: 318px;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    justify-content: center;
+    gap: 10px;
+}
+
+.game-cell {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--grey);
+    cursor: pointer;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+.game-cell:disabled {
+    cursor: auto;
+}
+
+/* Popup formatting */
+
+.popup_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+.popup_box {
+    width: 250px;
+    background: #f2f2f2;
+    text-align: center;
+    align-items: center;
+    padding: 40px;
+    border: 1px solid #b3b3b3;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .2);
+    z-index: 9999;
+    display: none;
+}
+
+.popup_box h1 {
+    font-size: 20px;
+    color: #1b2631;
+    margin-bottom: 5px;
+}
+
+.popup_box label {
+    font-size: 23px;
+    color: #404040;
+}
+
+.popup_box .btns {
+    margin: 40px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btns .btn1,
+.btns .btn2 {
+    background: var(--red);
+    color: var(--white);
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid var(--red);
+    padding: 10px 13px;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    font-size: 40px;
+    text-decoration: none;
+}
+
+.btns .btn2 {
+    margin-left: 20px;
+    background: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+.btns .btn1:hover {
+    transition: .5s;
+    background: var(--red);
+}
+
+.btns .btn2:hover {
+    transition: .5s;
+    background: var(--blue);
+}
+
+/* Line animation formatting */
+#line1 {
+    stroke: var(--light-green);
+    stroke-width: 10px;
+    opacity: 0.5;
+}
+
+/* X and O animation formatting */
+
+.naught {
+    stroke: var(--blue);
+    transform: rotateX(180deg);
+}
+
+.cross {
+    stroke: var(--red);
+}
+
+path,
+circle {
+    animation: draw var(--draw-speed) calc(var(--delay, 0) * var(--draw-speed)) ease-in both;
+}
+
+path:nth-of-type(2) {
+    --delay: 1;
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+
+#blink {
+    transition: 0.4s;
+}

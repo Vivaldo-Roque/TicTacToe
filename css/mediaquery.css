@@ -1,0 +1,334 @@
+/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+/* ----------- iPhone 5, 5S, 5C and 5SE ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+/* ----------- Galaxy S3 ----------- */
+
+/* Portrait */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+/* ----------- Galaxy S4, S5 and Note 3 ----------- */
+
+/* Portrait */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+/* ----------- Galaxy S6 ----------- */
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: portrait) {
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+}
+
+/* ----------- Galaxy Fold ----------- */
+
+/* Portrait */
+@media(max-width: 320px){ 
+
+    .cover1 {
+        height: 300px;
+        width: 180px;
+    }
+
+    .type-container {
+        width: 159.5px;
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+    
+    .type-container button {
+        width: 75px;
+        height: 55px;
+        border-radius: 8px;
+        border: 2px solid var(--white);
+        transition: border .4s;
+    }
+    
+    .type-container button div {
+        width: 2px;
+        height: 2px;
+        border-radius: 1px;
+        border: 2px solid var(--white);
+        top: 2px;
+        right: 2px;
+        transition: border .4s;
+    }
+    
+    .type-container button svg {
+        margin-bottom: 1px;
+        width: 30px;
+        height: 30px;
+        transition: fill .4s;
+    }
+    
+    .type-container button strong {
+        size: 9px;
+        color: var(--white);
+        font-weight: 900;
+        transition: color .4s;
+    }
+
+    .type-container button:hover div {
+        border: 2px solid #dddddd;
+    }
+
+    .type-container button:hover {
+        border: 2px solid #dddddd;
+    }
+
+    .game-grid {
+        
+        height: 159px;
+        width: 158px;
+        gap: 5px;
+    }
+    
+    .game-cell {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--grey);
+        cursor: pointer;
+        font-size: 15px;
+        text-align: center;
+        border: none;
+        outline: none;
+    }
+
+    .parent {
+        position: relative;
+        height: 250px;
+        width: 160px;
+    }
+
+    #lineSvg {
+        height: 159px;
+        width: 158px; 
+    }
+
+    .status-action {
+        height: 75px;
+        margin: 7.5px 0px 7.5px 0px;
+    }
+
+    #but {
+        width: 47.5px;
+        height: 15px;
+        line-height: 15px;
+        font-size: 8px;
+    }
+
+    .print {
+        font-size: 14px;
+    }
+
+    .popup_box {
+        width: 125px;
+    }
+
+    .content-wrap{
+        font-size: medium;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    h2{
+        font-size: 12px;
+    }
+
+    .popup_box h1 {
+        font-size: 10px;
+        color: #1b2631;
+        margin-bottom: 5px;
+    }
+    
+    .popup_box .btns {
+        margin: 20px 0 0 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .btns .btn1,
+    .btns .btn2 {
+        line-height: 25px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 20px;
+        height: 25px;
+        width: 25px;
+    }
+  }
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+    .content-wrap{
+        font-size: medium;
+    }
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) {
+      .content-wrap{
+          font-size: medium;
+      }
+}

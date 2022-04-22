@@ -254,11 +254,16 @@ var blink;
 var crossAudio;
 var circleAudio;
 var jqueryButtons = Array();
+var letterSize = 60;
+
+if (window.screen.width <= 320) {
+  letterSize = 40;
+}
 
 // HTML code for Circle
 // Código HTML para Circulo
 const circle_element = `
-  <svg class="naught" width="60" height="60" view-box="0 0 100 100">
+  <svg class="naught" width="${letterSize}" height="${letterSize}" viewBox="0 0 60 60">
       <circle
         r="25"
         cx="30"
@@ -275,7 +280,7 @@ const circle_element = `
 // HTML code for Cross
 // Código HTML para Cruz
 const cross_element = `
-  <svg class="cross" width="60" height="60" viewBox="0 0 100 100">
+  <svg class="cross" width="${letterSize}" height="${letterSize}" viewBox="0 0 100 100">
     <path
       d="M 95 5 L 5 95"
       stroke-dasharray="300"
@@ -665,26 +670,32 @@ function drawLine() {
   var x2;
   var y2;
 
+  var magicalNumber = 100;
+
+  if (window.screen.width <= 320) {
+    magicalNumber = 50;
+  }
+
   // cross
   if (board[0][0] === won && board[2][2] === won && board[1][1] === won) {
 
     pos1 = jqueryButtons[0];
     pos2 = jqueryButtons[8];
 
-    x1 = (pos1.left + 100 / 2) - 40;
-    y1 = (pos1.top + 100 / 2) - 40;
-    x2 = (pos2.left + 100 / 2) + 40;
-    y2 = (pos2.top + 100 / 2) + 40;
+    x1 = (pos1.left + magicalNumber / 2) - 40;
+    y1 = (pos1.top + magicalNumber / 2) - 40;
+    x2 = (pos2.left + magicalNumber / 2) + 40;
+    y2 = (pos2.top + magicalNumber / 2) + 40;
 
   } else if (board[2][0] === won && board[0][2] === won && board[1][1] === won) {
 
     pos1 = jqueryButtons[6];
     pos2 = jqueryButtons[2];
 
-    x1 = (pos1.left + 100 / 2) - 40;
-    y1 = (pos1.top + 100 / 2) + 40;
-    x2 = (pos2.left + 100 / 2) + 40;
-    y2 = (pos2.top + 100 / 2) - 40;
+    x1 = (pos1.left + magicalNumber / 2) - 40;
+    y1 = (pos1.top + magicalNumber / 2) + 40;
+    x2 = (pos2.left + magicalNumber / 2) + 40;
+    y2 = (pos2.top + magicalNumber / 2) - 40;
 
     // line inside horizontal
   } else if (board[1][0] === won && board[1][2] === won && board[1][1] === won) {
@@ -693,9 +704,9 @@ function drawLine() {
     pos2 = jqueryButtons[5];
 
     x1 = pos1.left;
-    y1 = pos1.top + 100 / 2;
-    x2 = pos2.left + 100;
-    y2 = pos2.top + 100 / 2;
+    y1 = pos1.top + magicalNumber / 2;
+    x2 = pos2.left + magicalNumber;
+    y2 = pos2.top + magicalNumber / 2;
 
     // line inside vertical
   } else if (board[0][1] === won && board[2][1] === won && board[1][1] === won) {
@@ -703,10 +714,10 @@ function drawLine() {
     pos1 = jqueryButtons[1];
     pos2 = jqueryButtons[7];
 
-    x1 = pos1.left + 99 / 2;
+    x1 = pos1.left + (magicalNumber - 1) / 2;
     y1 = pos1.top;
-    x2 = pos2.left + 99 / 2;
-    y2 = pos2.top + 100;
+    x2 = pos2.left + (magicalNumber - 1) / 2;
+    y2 = pos2.top + magicalNumber;
 
     // line outside horizontal
   } else if (board[0][0] === won && board[0][1] === won && board[0][2] === won) {
@@ -715,9 +726,9 @@ function drawLine() {
     pos2 = jqueryButtons[2];
 
     x1 = pos1.left;
-    y1 = pos1.top + 100 / 2;
-    x2 = pos2.left + 100;
-    y2 = pos2.top + 100 / 2;
+    y1 = pos1.top + magicalNumber / 2;
+    x2 = pos2.left + magicalNumber;
+    y2 = pos2.top + magicalNumber / 2;
 
   } else if (board[2][0] === won && board[2][1] === won && board[2][2] === won) {
 
@@ -725,9 +736,9 @@ function drawLine() {
     pos2 = jqueryButtons[8];
 
     x1 = pos1.left;
-    y1 = pos1.top + 100 / 2;
-    x2 = pos2.left + 100;
-    y2 = pos2.top + 100 / 2;
+    y1 = pos1.top + magicalNumber / 2;
+    x2 = pos2.left + magicalNumber;
+    y2 = pos2.top + magicalNumber / 2;
 
     // line outside vertical
   } else if (board[0][0] === won && board[1][0] === won && board[2][0] === won) {
@@ -735,20 +746,20 @@ function drawLine() {
     pos1 = jqueryButtons[0];
     pos2 = jqueryButtons[6];
 
-    x1 = pos1.left + 99 / 2;
+    x1 = pos1.left + (magicalNumber - 1) / 2;
     y1 = pos1.top;
-    x2 = pos2.left + 99 / 2;
-    y2 = pos2.top + 100;
+    x2 = pos2.left + (magicalNumber - 1) / 2;
+    y2 = pos2.top + magicalNumber;
 
   } else if (board[0][2] === won && board[1][2] === won && board[2][2] === won) {
 
     pos1 = jqueryButtons[2];
     pos2 = jqueryButtons[8];
 
-    x1 = pos1.left + 99 / 2;
+    x1 = pos1.left + (magicalNumber - 1) / 2;
     y1 = pos1.top;
-    x2 = pos2.left + 99 / 2;
-    y2 = pos2.top + 100;
+    x2 = pos2.left + (magicalNumber - 1) / 2;
+    y2 = pos2.top + magicalNumber;
 
   }
 

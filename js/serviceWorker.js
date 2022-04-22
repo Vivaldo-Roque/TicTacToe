@@ -12,18 +12,42 @@ var URLS = [
   `${GHPATH}/pages/about.html`,
   `${GHPATH}/pages/contact.html`,
   `${GHPATH}/css/style.css`,
+  `${GHPATH}/css/game.css`,
+  `${GHPATH}/css/social.css`,
+  `${GHPATH}/css/mediaquery.css`,
   `${GHPATH}/css/prism.css`,
   `${GHPATH}/js/app.js`,
   `${GHPATH}/js/jquery-3.6.0.min.js`,
   `${GHPATH}/js/prism.js`,
   `${GHPATH}/js/navigation.js`,
   `${GHPATH}/js/ttt.js`,
-  `${GHPATH}/serviceWorker.js`,
+  `${GHPATH}/js/serviceWorker.js`,
   `${GHPATH}/imgs/diagram.png`,
   `${GHPATH}/imgs/avatar.jpg`,
   `${GHPATH}/sound/pencil_o.mp3`,
   `${GHPATH}/sound/pencil_x.mp3`
 ];
+
+let deferredPrompt;
+
+var installButton = document.getElementById("install-button");
+
+function showButton(){
+    installButton.classList.add("install-button");
+    installButton.innerHTML += "<div>Instalar</div>";
+}
+
+function hideButton(){
+  installButton.remove();
+}
+
+function hide(){
+  deferredPrompt.preventDefault();
+}
+
+function show(){
+  deferredPrompt.prompt();
+}
 
 // Respond with cached resources
 self.addEventListener('fetch', function (e) {
@@ -42,6 +66,26 @@ self.addEventListener('fetch', function (e) {
       // return request || fetch(e.request)
     }).catch(err => console.log('Error while fetching assets', err))
   );
+});
+
+self.addEventListener('beforeinstallprompt', function(e) {
+
+  deferredPrompt = e;
+  hide();
+  showButton();
+
+});
+
+installButton.addEventListener('click', () => {
+  show();
+});
+
+self.addEventListener('appinstalled', () => {
+
+  hide();
+  hideButton();
+  deferredPrompt = null;
+
 });
 
 // Cache resources
