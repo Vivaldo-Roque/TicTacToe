@@ -35,6 +35,9 @@ var installButton = document.getElementById("install-button");
 function showButton(){
     installButton.classList.add("install-button");
     installButton.innerHTML += "<div>Instalar</div>";
+    installButton.addEventListener('click', () => {
+      show();
+    });
 }
 
 function hideButton(){
@@ -74,10 +77,6 @@ self.addEventListener('beforeinstallprompt', function(e) {
   hide();
   showButton();
 
-});
-
-installButton.addEventListener('click', () => {
-  show();
 });
 
 self.addEventListener('appinstalled', () => {
