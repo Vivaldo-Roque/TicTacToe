@@ -1,5 +1,10 @@
 window.addEventListener("load", () => {
 
+  main();
+
+});
+
+function main(){
   var myScope = "/TicTacToe/";
   //var myScope = "/";
 
@@ -44,5 +49,4 @@ window.addEventListener("load", () => {
   function hideButton() {
     installButton.remove();
   }
-
-});
+};
