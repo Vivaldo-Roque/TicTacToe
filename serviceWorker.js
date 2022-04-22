@@ -1,5 +1,6 @@
 var GHPATH = '/TicTacToe';
- 
+//var GHPATH = '';
+
 var APP_PREFIX = 'TicTacToe_';
 
 var VERSION = 'version_01';
@@ -28,30 +29,6 @@ var URLS = [
   `${GHPATH}/sound/pencil_x.mp3`
 ];
 
-let deferredPrompt;
-
-var installButton = document.getElementById("install-button");
-
-function showButton(){
-    installButton.classList.add("install-button");
-    installButton.innerHTML += "<div>Instalar</div>";
-    installButton.addEventListener('click', () => {
-      show();
-    });
-}
-
-function hideButton(){
-  installButton.remove();
-}
-
-function hide(){
-  deferredPrompt.preventDefault();
-}
-
-function show(){
-  deferredPrompt.prompt();
-}
-
 // Respond with cached resources
 self.addEventListener('fetch', function (e) {
   console.log('fetch request : ' + e.request.url);
@@ -64,27 +41,10 @@ self.addEventListener('fetch', function (e) {
         console.log('file is not cached, fetching : ' + e.request.url)
         return fetch(e.request);
       }
-
       // You can omit if/else for console.log & put one line below like this too.
       // return request || fetch(e.request)
     }).catch(err => console.log('Error while fetching assets', err))
   );
-});
-
-self.addEventListener('beforeinstallprompt', function(e) {
-
-  deferredPrompt = e;
-  hide();
-  showButton();
-
-});
-
-self.addEventListener('appinstalled', () => {
-
-  hide();
-  hideButton();
-  deferredPrompt = null;
-
 });
 
 // Cache resources
@@ -111,7 +71,7 @@ self.addEventListener('activate', function (e) {
 
       return Promise.all(keyList.map(function (key, i) {
         if (cacheWhitelist.indexOf(key) === -1) {
-          console.log('deleting cache : ' + keyList[i] );
+          console.log('deleting cache : ' + keyList[i]);
           return caches.delete(keyList[i]);
         }
       }));

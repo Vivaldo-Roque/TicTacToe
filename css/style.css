@@ -180,4 +180,5 @@ h1 span {
     border-color: var(--dark-green);
     margin-top: 10px;
     margin-bottom: 10px;
+    display: none;
 }
