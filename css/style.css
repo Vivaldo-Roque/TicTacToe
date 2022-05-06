@@ -93,6 +93,9 @@ ul li a.logo {
 
 .text{
     text-indent: 25px;
+    text-align: justify; 
+    text-justify: distribute-all-lines;
+    padding: 10px;
 }
 
 footer {
@@ -181,4 +184,8 @@ h1 span {
     margin-top: 10px;
     margin-bottom: 10px;
     display: none;
+}
+
+.install-button:hover{
+    cursor: pointer;
 }
