@@ -446,7 +446,9 @@ function restart() {
 function disableAllButtons() {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
-      boxsID[i][j].disabled = true;
+      if(boxsID[i][j].value === ""){
+        boxsID[i][j].disabled = true;
+      }
     }
   }
 }
@@ -456,7 +458,9 @@ function disableAllButtons() {
 function enableAllButtons() {
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
-      boxsID[i][j].disabled = false;
+      if(boxsID[i][j].value === ""){
+        boxsID[i][j].disabled = false;
+      }
     }
   }
 }
