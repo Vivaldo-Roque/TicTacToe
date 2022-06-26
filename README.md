@@ -8,7 +8,7 @@
 
 TicTacToe Game with AI using JavaScript.
 
-[README em Português](https://github.com/EdlanioJ)
+[README em Português](README_PT.md)
 
 ![Desktop/Tablet](https://github.com/Vivaldo-Roque/TicTacToe/blob/master/imgs/showcase1.png)
 ![Phone](https://github.com/Vivaldo-Roque/TicTacToe/blob/master/imgs/showcase2.png)
