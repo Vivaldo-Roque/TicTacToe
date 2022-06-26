@@ -10,8 +10,17 @@ TicTacToe Game with AI using JavaScript.
 
 [README em Português](README_PT.md)
 
-![Desktop/Tablet](https://github.com/Vivaldo-Roque/TicTacToe/blob/master/imgs/showcase1.png)
-![Phone](https://github.com/Vivaldo-Roque/TicTacToe/blob/master/imgs/showcase2.png)
+<h2 align="center">
+  <br>
+  <a href="https://vivaldo-roque.github.io/TicTacToe/"><img src="https://github.com/Vivaldo-Roque/TicTacToe/blob/master/imgs/showcase1.png" alt="Dektop/Tablet"></a>
+  <br>
+</h2>
+
+<h2 align="center">
+  <br>
+  <a href="https://vivaldo-roque.github.io/TicTacToe/"><img src="https://github.com/Vivaldo-Roque/TicTacToe/blob/master/imgs/showcase2.png" alt="Phone"></a>
+  <br>
+</h2>
 
 ## Libraries
 
@@ -33,4 +42,4 @@ Instructions on how to use them in your own application are linked below.
 
 ## License
 
-MIT
+[MIT](LICENSE)
