@@ -37,6 +37,10 @@ Instructions on how to use them in your own application are linked below.
 - Added PWA (Progressive Web App) support.
 - invincible AI.
 
+## TODO
+
+- Add game levels against the computer.
+
 ## Contributors
 [Edlânio Júlio](https://github.com/EdlanioJ)
 
