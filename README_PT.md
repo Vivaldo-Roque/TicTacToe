@@ -40,7 +40,7 @@ As instruções sobre como usá-los em seu próprio aplicativo estão no link ab
 
 ## Para fazer
 
-- Adicionar níveis contra o computador.
+- Adicione níveis de jogo contra o computador.
 
 ## Contribuidor
 [Edlânio Júlio](https://github.com/EdlanioJ)

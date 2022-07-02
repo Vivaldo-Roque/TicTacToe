@@ -40,10 +40,6 @@ Instructions on how to use them in your own application are linked below.
 
 ## TODO
 
-- Add levels against the computer.
-
-## TODO
-
 - Add game levels against the computer.
 
 ## Contributors
