@@ -36,6 +36,11 @@ As instruções sobre como usá-los em seu próprio aplicativo estão no link ab
 
 - Adicionado suporte PWA (Progressive Web App).
 - IA invencível.
+- Multi-idiomas (EN, PT).
+
+## Para fazer
+
+- Adicionar níveis contra o computador.
 
 ## Contribuidor
 [Edlânio Júlio](https://github.com/EdlanioJ)

@@ -310,7 +310,7 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Vez do jogador ' + player(board);
+      msg.innerHTML = getLanguage(player(board))
       if (player(board) === X) {
         msg.style.color = "#FF073A";
       } else if (player(board) === O) {
@@ -329,7 +329,7 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Vez do jogador ' + player(board);
+      msg.innerHTML = getLanguage(player(board))
       if (player(board) === X) {
         msg.style.color = "#FF073A";
       } else if (player(board) === O) {
@@ -357,7 +357,7 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Vez do jogador ' + X;
+      msg.innerHTML = getLanguage(X)
       user = X;
       if (user === X) {
         msg.style.color = "#FF073A";
@@ -368,7 +368,7 @@ function popup(AI) {
       const myPopUp = document.getElementsByClassName('popup_box')[0];
       myPopUp.style.display = 'none';
       enableAllButtons();
-      msg.innerHTML = 'Vez do jogador ' + O;
+      msg.innerHTML = getLanguage(O)
       user = O;
       if (user === O) {
         msg.style.color = "#006AF9";
@@ -506,7 +506,7 @@ function setAiMove1() {
   updateButtonTexts();
   ai_turn = false;
   enableAllButtons();
-  msg.innerHTML = 'Vez do jogador ' + player(board);
+  msg.innerHTML = getLanguage(player(board))
   if (player(board) === X) {
     msg.style.color = "#FF073A";
   } else if (player(board) === O) {
@@ -538,11 +538,11 @@ function setAiMove2() {
   updateButtonTexts();
   if (terminal(board)) {
     won = winner(board);
-    msg.innerHTML = 'Jogador ' + won + ' venceu!';
+    msg.innerHTML = getLanguage(won+"W");
     msg.style.color = "#04AA6D";
     drawLine();
     if (won === null) {
-      msg.innerHTML = 'Empate';
+      msg.innerHTML = getLanguage("draw");
     }
     disableAllButtons();
     clearInterval(refreshIntervalId);
@@ -550,7 +550,8 @@ function setAiMove2() {
     return;
   }
 
-  msg.innerHTML = 'Vez do jogador ' + player(board);
+  msg.innerHTML = getLanguage(player(board))
+
   if (player(board) === X) {
     msg.style.color = "#FF073A";
   } else if (player(board) === O) {
@@ -573,11 +574,11 @@ function game() {
 
   if (terminal(board)) {
     won = winner(board);
-    msg.innerHTML = 'Jogador ' + won + ' venceu!';
+    msg.innerHTML = getLanguage(won+"W");
     msg.style.color = "#04AA6D";
     drawLine();
     if (won === null) {
-      msg.innerHTML = 'Empate';
+      msg.innerHTML = getLanguage("draw");
     }
     disableAllButtons();
     return;
@@ -596,7 +597,7 @@ function game() {
   if (!game_mode_cpu) {
     user = player(board);
   }
-  msg.innerHTML = 'Vez do jogador ' + player(board);
+  msg.innerHTML = getLanguage(player(board))
   if (player(board) === X) {
     msg.style.color = "#FF073A";
   } else if (player(board) === O) {
@@ -605,11 +606,11 @@ function game() {
 
   if (terminal(board)) {
     won = winner(board);
-    msg.innerHTML = 'Jogador ' + won + ' venceu!';
+    msg.innerHTML = getLanguage(won+"W");
     msg.style.color = "#04AA6D";
     drawLine();
     if (won === null) {
-      msg.innerHTML = 'Empate';
+      msg.innerHTML = getLanguage("draw");
     }
     disableAllButtons();
     return;
