@@ -5,8 +5,7 @@ var languages;
 window.addEventListener("load", () => {
 
   var xmlhttp = new XMLHttpRequest();
-  var url = "./TicTacToe/languages.json";
-  var url1 = "../TicTacToe/languages.json";
+  var url = "https://vivaldo-roque.github.io/TicTacToe/languages.json";
 
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -20,7 +19,7 @@ window.addEventListener("load", () => {
     }
   };
 
-  xmlhttp.open("GET", url1, true);
+  xmlhttp.open("GET", url, true);
   xmlhttp.send();
 
   sw();
