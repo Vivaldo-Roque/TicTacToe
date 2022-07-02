@@ -5,8 +5,8 @@ var languages;
 window.addEventListener("load", () => {
 
   var xmlhttp = new XMLHttpRequest();
-  var url = "./languages.json";
-  var url1 = "../languages.json";
+  var url = "./TicTacToe/languages.json";
+  var url1 = "../TicTacToe/languages.json";
 
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
