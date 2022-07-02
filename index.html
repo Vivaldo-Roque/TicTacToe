@@ -37,25 +37,28 @@
         <div>
             <ul class="topnav">
                 <li><a href="./index.html" class="logo">VR</a></li>
-                <li id="home"><a href="./index.html">Início</a></li>
-                <li id="contact"><a href="./pages/contact.html">Contato</a></li>
-                <li id="about"><a href="./pages/about.html">Sobre</a></li>
+                <li id="home"><a id="home_text" href="./index.html"></a></li>
+                <li id="contact"><a id="contact_text" href="./pages/contact.html"></a></li>
+                <li id="about"><a id="about_text" href="./pages/about.html"></a></li>
             </ul>
         </div>
 
         <div class="content-wrap">
 
-            <select id="listLanguages" style="position: absolute; right: 0; width: 8%;"></select>
+            <select id="listLanguages" style="position: absolute; right: 0; width: 9rem;"></select>
 
             <div id="install-button" class="install-button">
-                <div id="install">Instalar</div>
+                <div id="install"></div>
             </div>
 
             <h1>
                 Tic Tac Toe
             </h1>
 
-            <p id="advice_msg"><b id="advice">Nota:</b> X sempre jogará primeiro!</p>
+            <div>
+                <b id="advice" style="display: inline-block;"></b>
+                <p id="advice_msg" style="display: inline-block;"></p>  
+            </div>
 
             <div class="cover1">
                 <!-- pay 1 VS 1 and 1 VS CPU buttons -->
@@ -124,16 +127,14 @@
                     </div>
 
                     <!-- Button to reset game -->
-                    <button id="restart" onclick="restart()">
-                        Reiniciar
-                    </button>
+                    <button id="restart" onclick="restart()"></button>
                 </div>
             </div>
 
 
 
             <div class="popup_box">
-                <h1 id="side_msg">Escolha entre "X" ou "O"</h1>
+                <h1 id="side_msg"></h1>
                 <div class="btns">
                     <a href="javascript:void(0)" class="btn1">X</a>
                     <a href="javascript:void(0)" class="btn2">O</a>
@@ -143,7 +144,7 @@
 
         <div>
             <footer>
-                <p id="author">Autor: Vivaldo Roque</p>
+                <p id="author"></p>
             </footer>
         </div>
     </div>

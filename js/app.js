@@ -157,7 +157,13 @@ function refreshLabels() {
     var idname = allnodes[i].id;
     // if id exists, set get id current elements
     if (idname != '' && getLanguage(idname) != null) {
-      allnodes[i].lastChild.textContent = getLanguage(idname);
+      if(idname === "code"){
+        getLanguage(idname).forEach(function(currentValue){
+          allnodes[i].textContent += currentValue;
+        });
+      }else{
+        allnodes[i].textContent = getLanguage(idname);
+      }
     };
   };
 }
