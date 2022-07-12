@@ -15,6 +15,18 @@ function initial_state() {
   ];
 }
 
+function countEmptySlots(board) {
+  // Returns empty slots
+  // Retorna espaços vazios
+  let count = 0;
+
+  for (var x = 0; x < board.length; x++) {
+    count = count + board[x].filter((item) => item === EMPTY).length;
+  }
+
+  return count;
+}
+
 function actions(board) {
   // Returns set of all possible actions (i, j) available on the board.
   // Retorna um conjunto de todas as possiveis ações (i, j) disponiveis no tabuleiro, ou seja todas as possiveis jogadas.
@@ -162,6 +174,7 @@ function result(board, action) {
 // Minimax algorithm implemetation
 // Implementação do algoritmo minimax
 function minimax(board, alpha, beta) {
+
   let best;
   if (terminal(board)) {
     return utility(board);
@@ -229,6 +242,15 @@ function findBestMove(board, user) {
   return bestMove;
 }
 
+function playRandom(board) {
+
+  let actionsList = actions(board);
+
+  var random1 = Math.floor((Math.random() * (actionsList.length)));
+
+  return actionsList[random1];
+}
+
 //#endregion
 
 // 2D array to save all instance of my buttons
@@ -255,6 +277,8 @@ var crossAudio;
 var circleAudio;
 var jqueryButtons = Array();
 var letterSize = 60;
+var gameMode;
+var level = true;
 
 if (window.screen.width <= 320) {
   letterSize = 40;
@@ -300,15 +324,44 @@ const cross_element = `
 
 // Function to show select game mode and side popup
 // Função para mostrar diálogo de alerta para seleção do modo de jogo e lado.
-function popup(AI) {
-  const myPopUp = document.getElementsByClassName('popup_box')[0];
-  const myBtn1 = document.getElementsByClassName('btn1')[0];
-  const myBtn2 = document.getElementsByClassName('btn2')[0];
-  myPopUp.style.display = 'block';
+function gamemodePopup(AI) {
+  const gamemode = document.getElementById('gamemode');
+  const myBtn1 = document.getElementById('btn1');
+  const myBtn2 = document.getElementById('btn2');
+  gamemode.style.display = 'block';
+
+  // Se escolher IA
   if (AI) {
+
+    const gameLevel = document.getElementById('gamelevel');
+    const myBtn3 = document.getElementById('btn3');
+    const myBtn4 = document.getElementById('btn4');
+    const myBtn5 = document.getElementById('btn5');
+    gamemode.style.display = 'none';
+    gameLevel.style.display = 'flex';
+
+    myBtn3.addEventListener('click', () => {
+      gameMode = 0;
+      gameLevel.style.display = 'none';
+      gamemode.style.display = 'block';
+    });
+
+    myBtn4.addEventListener('click', () => {
+      gameMode = 1;
+      gameLevel.style.display = 'none';
+      gamemode.style.display = 'block';
+    });
+
+    myBtn5.addEventListener('click', () => {
+      gameMode = 2;
+      gameLevel.style.display = 'none';
+      gamemode.style.display = 'block';
+    });
+
     myBtn1.addEventListener('click', function () {
-      const myPopUp = document.getElementsByClassName('popup_box')[0];
-      myPopUp.style.display = 'none';
+      // Escolhendo X o Usuário joga primeiro.
+      const gamemode = document.getElementById('gamemode');
+      gamemode.style.display = 'none';
       enableAllButtons();
       msg.innerHTML = getLanguage(player(board))
       if (player(board) === X) {
@@ -325,9 +378,11 @@ function popup(AI) {
       game_mode_cpu = true;
       copyButtonTextsToBoard();
     });
+
     myBtn2.addEventListener('click', function () {
-      const myPopUp = document.getElementsByClassName('popup_box')[0];
-      myPopUp.style.display = 'none';
+      // Escolhendo O a IA joga primeiro.
+      const gamemode = document.getElementById('gamemode');
+      gamemode.style.display = 'none';
       enableAllButtons();
       msg.innerHTML = getLanguage(player(board))
       if (player(board) === X) {
@@ -349,13 +404,14 @@ function popup(AI) {
           blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
         }, 500);
         setTimeout(setAiMove1, 3000);
-
       }
     });
+    // Caso não escolher IA
   } else {
     myBtn1.addEventListener('click', function () {
-      const myPopUp = document.getElementsByClassName('popup_box')[0];
-      myPopUp.style.display = 'none';
+      // Jogar como X
+      const gamemode = document.getElementById('gamemode');
+      gamemode.style.display = 'none';
       enableAllButtons();
       msg.innerHTML = getLanguage(X)
       user = X;
@@ -365,8 +421,9 @@ function popup(AI) {
       game_mode_cpu = false;
     });
     myBtn2.addEventListener('click', function () {
-      const myPopUp = document.getElementsByClassName('popup_box')[0];
-      myPopUp.style.display = 'none';
+      // Jogar como O
+      const gamemode = document.getElementById('gamemode');
+      gamemode.style.display = 'none';
       enableAllButtons();
       msg.innerHTML = getLanguage(O)
       user = O;
@@ -381,7 +438,7 @@ function popup(AI) {
 // Function for 1 vs 1
 // Função para jogar 1 contra 1
 function oneVsOne() {
-  popup(false);
+  gamemodePopup(false);
   document.getElementById("1vs1").disabled = true;
   document.getElementById("1vscpu").disabled = true;
 }
@@ -389,7 +446,7 @@ function oneVsOne() {
 // Function for 1 vs cpu (AI)
 // Função para jogar 1 contra computador(AI)
 function oneVsCpu() {
-  popup(true);
+  gamemodePopup(true);
   document.getElementById("1vs1").disabled = true;
   document.getElementById("1vscpu").disabled = true;
 }
@@ -491,7 +548,8 @@ function setAiMove1() {
 
   copyButtonTextsToBoard();
 
-  move = findBestMove(board, user);
+  // move = findBestMove(board, user);
+  move = playRandom(board);
 
   if (player(board) === X) {
     playCrossAudio();
@@ -520,7 +578,19 @@ function setAiMove1() {
 // Função chamada por setTimeout() dentro da função game()
 function setAiMove2() {
 
-  move = findBestMove(board, user);
+  if(gameMode === 0){
+    move = playRandom(board);
+  }else if(gameMode === 1) {
+    if(level) {
+      move = playRandom(board);
+      level = !level;
+    }else{
+      move = findBestMove(board, user);
+      level = !level;
+    }
+  } else if(gameMode === 2) {
+    move = findBestMove(board, user);
+  }
 
   if (player(board) === X) {
     playCrossAudio();

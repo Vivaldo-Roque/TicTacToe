@@ -127,7 +127,7 @@
     top: 0;
     left: 0;
     height: 320px;
-    width: 320px;    
+    width: 320px;
 }
 
 .parent {
@@ -191,6 +191,7 @@
     box-shadow: 0px 5px 10px rgba(0, 0, 0, .2);
     z-index: 9999;
     display: none;
+    flex-direction: column; align-items: center; align-content: center;
 }
 
 .popup_box h1 {
@@ -210,14 +211,17 @@
     justify-content: space-between;
 }
 
-.btns .btn1,
-.btns .btn2 {
+.btns #btn1,
+.btns #btn2,
+.btns #btn3,
+.btns #btn4,
+.btns #btn5 {
     background: var(--red);
     color: var(--white);
     font-size: 18px;
     border-radius: 5px;
     border: 1px solid var(--red);
-    padding: 10px 13px;
+    padding: 10px 10px;
     height: 50px;
     width: 50px;
     text-align: center;
@@ -227,19 +231,38 @@
     text-decoration: none;
 }
 
-.btns .btn2 {
+.btns #btn2 {
     margin-left: 20px;
     background: var(--blue);
     border: 1px solid var(--blue);
 }
 
-.btns .btn1:hover {
+.btns #btn3,
+.btns #btn4,
+.btns #btn5 {
+    padding: 5px 5px;
+    width: auto;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.btns #btn4 {
+    background: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+.btns #btn1:hover,
+.btns #btn3:hover,
+.btns #btn5:hover {
     transition: .5s;
+    opacity: .8;
     background: var(--red);
 }
 
-.btns .btn2:hover {
+.btns #btn2:hover,
+.btns #btn4:hover {
     transition: .5s;
+    opacity: .8;
     background: var(--blue);
 }
 
