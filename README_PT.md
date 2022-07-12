@@ -34,15 +34,13 @@ As instruções sobre como usá-los em seu próprio aplicativo estão no link ab
 
 ## Funcionalidades
 
-- Adicionado suporte PWA (Progressive Web App).
-- IA invencível.
-- Multi-idiomas (EN, PT).
-
-## Para fazer
-
-- Adicione níveis de jogo contra o computador.
+- Adicionado suporte PWA (Progressive Web App);
+- IA invencível;
+- Multi-idiomas (EN, PT);
+- Adicionado níveis de jogo.
 
 ## Contribuidor
+
 [Edlânio Júlio](https://github.com/EdlanioJ)
 
 ## Licensa

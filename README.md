@@ -34,15 +34,13 @@ Instructions on how to use them in your own application are linked below.
 
 ## Features
 
-- Added PWA (Progressive Web App) support.
-- invincible AI.
-- Multilanguage (EN, PT).
-
-## TODO
-
-- Add game levels against the computer.
+- Added PWA (Progressive Web App) support;
+- invincible AI;
+- Multilanguage (EN, PT);
+- Added game levels.
 
 ## Contributors
+
 [Edlânio Júlio](https://github.com/EdlanioJ)
 
 ## License
