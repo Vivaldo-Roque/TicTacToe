@@ -3,7 +3,7 @@ var GHPATH = '/TicTacToe';
 
 var APP_PREFIX = 'TicTacToe_';
 
-var VERSION = 'version_03';
+var VERSION = 'version_04';
 
 var CACHE_NAME = APP_PREFIX + VERSION;
 
@@ -18,7 +18,6 @@ var URLS = [
   `${GHPATH}/css/mediaquery.css`,
   `${GHPATH}/css/prism.css`,
   `${GHPATH}/js/app.js`,
-  `${GHPATH}/js/jquery-3.6.0.min.js`,
   `${GHPATH}/js/prism.js`,
   `${GHPATH}/js/navigation.js`,
   `${GHPATH}/js/ttt.js`,

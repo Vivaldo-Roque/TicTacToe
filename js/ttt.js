@@ -275,7 +275,7 @@ var refreshIntervalId;
 var blink;
 var crossAudio;
 var circleAudio;
-var jqueryButtons = Array();
+var boxesPosition = Array();
 var letterSize = 60;
 var gameMode;
 var level = true;
@@ -473,18 +473,45 @@ function initVariables() {
   disableAllButtons();
 }
 
-// Function that get all buttons coordenates in grade box, on screen using Jquery()
-// Função que faz uso do Jquery() para pegar as coordenadas de cada botão(caixa) na grade
+// Function that get all buttons coordenates in grade box, on screen
+// Função para pegar as coordenadas de cada botão(caixa) na grade
 function initLinesPositions() {
-  jqueryButtons[0] = $('#b1').position();
-  jqueryButtons[1] = $('#b2').position();
-  jqueryButtons[2] = $('#b3').position();
-  jqueryButtons[3] = $('#b4').position();
-  jqueryButtons[4] = $('#b5').position();
-  jqueryButtons[5] = $('#b6').position();
-  jqueryButtons[6] = $('#b7').position();
-  jqueryButtons[7] = $('#b8').position();
-  jqueryButtons[8] = $('#b9').position();
+  boxesPosition[0] = {
+    top: document.getElementById('b1').offsetTop,
+    left: document.getElementById('b1').offsetLeft
+  };
+  boxesPosition[1] = {
+    top: document.getElementById('b2').offsetTop,
+    left: document.getElementById('b2').offsetLeft
+  };
+  boxesPosition[2] = {
+    top: document.getElementById('b3').offsetTop,
+    left: document.getElementById('b3').offsetLeft
+  };
+  boxesPosition[3] = {
+    top: document.getElementById('b4').offsetTop,
+    left: document.getElementById('b4').offsetLeft
+  };
+  boxesPosition[4] = {
+    top: document.getElementById('b5').offsetTop,
+    left: document.getElementById('b5').offsetLeft
+  };
+  boxesPosition[5] = {
+    top: document.getElementById('b6').offsetTop,
+    left: document.getElementById('b6').offsetLeft
+  };
+  boxesPosition[6] = {
+    top: document.getElementById('b7').offsetTop,
+    left: document.getElementById('b7').offsetLeft
+  };
+  boxesPosition[7] = {
+    top: document.getElementById('b8').offsetTop,
+    left: document.getElementById('b8').offsetLeft
+  };
+  boxesPosition[8] = {
+    top: document.getElementById('b9').offsetTop,
+    left: document.getElementById('b9').offsetLeft
+  };
 }
 
 // Function to reset game
@@ -754,8 +781,8 @@ function drawLine() {
   // cross
   if (board[0][0] === won && board[2][2] === won && board[1][1] === won) {
 
-    pos1 = jqueryButtons[0];
-    pos2 = jqueryButtons[8];
+    pos1 = boxesPosition[0];
+    pos2 = boxesPosition[8];
 
     x1 = (pos1.left + magicalNumber / 2) - 40;
     y1 = (pos1.top + magicalNumber / 2) - 40;
@@ -764,8 +791,8 @@ function drawLine() {
 
   } else if (board[2][0] === won && board[0][2] === won && board[1][1] === won) {
 
-    pos1 = jqueryButtons[6];
-    pos2 = jqueryButtons[2];
+    pos1 = boxesPosition[6];
+    pos2 = boxesPosition[2];
 
     x1 = (pos1.left + magicalNumber / 2) - 40;
     y1 = (pos1.top + magicalNumber / 2) + 40;
@@ -775,8 +802,8 @@ function drawLine() {
     // line inside horizontal
   } else if (board[1][0] === won && board[1][2] === won && board[1][1] === won) {
 
-    pos1 = jqueryButtons[3];
-    pos2 = jqueryButtons[5];
+    pos1 = boxesPosition[3];
+    pos2 = boxesPosition[5];
 
     x1 = pos1.left;
     y1 = pos1.top + magicalNumber / 2;
@@ -786,8 +813,8 @@ function drawLine() {
     // line inside vertical
   } else if (board[0][1] === won && board[2][1] === won && board[1][1] === won) {
 
-    pos1 = jqueryButtons[1];
-    pos2 = jqueryButtons[7];
+    pos1 = boxesPosition[1];
+    pos2 = boxesPosition[7];
 
     x1 = pos1.left + (magicalNumber - 1) / 2;
     y1 = pos1.top;
@@ -797,8 +824,8 @@ function drawLine() {
     // line outside horizontal
   } else if (board[0][0] === won && board[0][1] === won && board[0][2] === won) {
 
-    pos1 = jqueryButtons[0];
-    pos2 = jqueryButtons[2];
+    pos1 = boxesPosition[0];
+    pos2 = boxesPosition[2];
 
     x1 = pos1.left;
     y1 = pos1.top + magicalNumber / 2;
@@ -807,8 +834,8 @@ function drawLine() {
 
   } else if (board[2][0] === won && board[2][1] === won && board[2][2] === won) {
 
-    pos1 = jqueryButtons[6];
-    pos2 = jqueryButtons[8];
+    pos1 = boxesPosition[6];
+    pos2 = boxesPosition[8];
 
     x1 = pos1.left;
     y1 = pos1.top + magicalNumber / 2;
@@ -818,8 +845,8 @@ function drawLine() {
     // line outside vertical
   } else if (board[0][0] === won && board[1][0] === won && board[2][0] === won) {
 
-    pos1 = jqueryButtons[0];
-    pos2 = jqueryButtons[6];
+    pos1 = boxesPosition[0];
+    pos2 = boxesPosition[6];
 
     x1 = pos1.left + (magicalNumber - 1) / 2;
     y1 = pos1.top;
@@ -828,8 +855,8 @@ function drawLine() {
 
   } else if (board[0][2] === won && board[1][2] === won && board[2][2] === won) {
 
-    pos1 = jqueryButtons[2];
-    pos2 = jqueryButtons[8];
+    pos1 = boxesPosition[2];
+    pos2 = boxesPosition[8];
 
     x1 = pos1.left + (magicalNumber - 1) / 2;
     y1 = pos1.top;
@@ -840,12 +867,12 @@ function drawLine() {
 
   /*
   
-  to get the center coordinates of the button use this formula:
+  to get the center coordinates of the box use this formula:
 
-  centerX = $("#b1").position().left + width / 2;
-  centerY = $("#b1").position().left + height / 2;
+  centerX = document.getElementById('b1').offsetLeft + width / 2;
+  centerY = document.getElementById('b1').offsetLeft + height / 2;
 
-  note: in css i used 100px for width and height
+  note: in css i used 100px for width and height of the box
   
   */
 
