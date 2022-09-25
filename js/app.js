@@ -135,11 +135,15 @@ function initList() {
 
   list.value = selectedLanguage;
 
-  $(document).ready(function () {
-    $("#listLanguages").change(function () {
-      langSelectChange($(this).val());
-    });
-  });
+  document.addEventListener('input', function (event) {
+
+    // Only run on our select menu
+    if (event.target.id !== 'listLanguages') return;
+  
+    langSelectChange(event.target.value);
+    console.log(event.target.value);
+  
+  }, false);
 
   refreshLabels();
 }
