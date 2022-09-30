@@ -29,7 +29,6 @@ Instructions on how to use them in your own application are linked below.
 
 | Library | README |
 | ------ | ------ |
-| Jquery.js | https://github.com/jquery/jquery/blob/main/README.md |
 | Prism.js | https://github.com/PrismJS/prism/blob/master/README.md |
 
 ## Features
