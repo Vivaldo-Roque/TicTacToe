@@ -8,6 +8,8 @@
 
 Jogo TicTacToe com IA usando JavaScript.
 
+[Teste aqui](https://vivaldo-roque.github.io/TicTacToe)
+
 [README em Inglês](README.md)
 
 <h2 align="center">
