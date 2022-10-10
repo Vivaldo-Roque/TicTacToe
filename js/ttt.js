@@ -517,7 +517,7 @@ function initLinesPositions() {
 // Function to reset game
 // Função que reinicia o jogo
 function restart() {
-  location.reload();
+  window.location.reload();
   for (var i = 0; i < 3; i++) {
     for (var j = 0; j < 3; j++) {
       boxsID[i][j].value = '';
@@ -907,3 +907,16 @@ function startLineAnimation() {
 window.onload = function () {
   initVariables();
 };
+
+// for scrolling
+document.addEventListener("DOMContentLoaded", function (event) {
+  var scrollpos = sessionStorage.getItem('scrollpos');
+  if (scrollpos) {
+      window.scrollTo(0, scrollpos);
+      sessionStorage.removeItem('scrollpos');
+  }
+});
+
+window.addEventListener("beforeunload", function (e) {
+  sessionStorage.setItem('scrollpos', window.scrollY);
+});
